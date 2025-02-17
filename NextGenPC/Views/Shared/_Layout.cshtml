@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- CORE CSS FRAMEWORK - START -->
+    <link href="~/Scripts/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Scripts/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="../assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
+    <link href="~/Content/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/animate.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
+    <!-- CORE CSS FRAMEWORK - END -->
+
+    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START -->
+    <link href="~/Scripts/plugins/morris-chart/css/morris.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Scripts/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END -->
+
+    <!-- CORE CSS TEMPLATE - START -->
+    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/responsive.css" rel="stylesheet" type="text/css" />
+    <!-- CORE CSS TEMPLATE - END -->
+
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <!-- CORE JS FRAMEWORK - START -->
+    <script src="~/Scripts/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/js/popper.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/js/jquery.easing.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/plugins/pace/pace.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
+    <script src=".~/Scripts/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
+    <script>window.jQuery || document.write('<script src="../assets/js/jquery-1.11.2.min.js"><\/script>');</script>
+    <!-- CORE JS FRAMEWORK - END -->
+    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+
+    <script src="~/Scripts/plugins/jquery-ui/smoothness/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/js/chart-sparkline.js" type="text/javascript"></script>
+    <script src="~/Scripts/plugins/easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/plugins/morris-chart/js/raphael-min.js" type="text/javascript"></script>
+    <script src="~/Scripts/plugins/morris-chart/js/morris.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/js/eco-dashboard.js" type="text/javascript"></script>
+    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
+    <!-- CORE TEMPLATE JS - START -->
+    <script src="~/Scripts/js/scripts.js" type="text/javascript"></script>
+    <!-- END CORE TEMPLATE JS - END -->
+
+
+</body>
+</html>
