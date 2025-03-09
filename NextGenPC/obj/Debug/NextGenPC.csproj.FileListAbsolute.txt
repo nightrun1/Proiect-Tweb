@@ -52,3 +52,10 @@ C:\Users\Edward\Documents\Lectii\Web\NextGenPC\NextGenPC\obj\Debug\NextGenPC.csp
 C:\Users\Edward\Documents\Lectii\Web\NextGenPC\NextGenPC\obj\Debug\NextGenPC.csproj.Up2Date
 C:\Users\Edward\Documents\Lectii\Web\NextGenPC\NextGenPC\obj\Debug\NextGenPC.dll
 C:\Users\Edward\Documents\Lectii\Web\NextGenPC\NextGenPC\obj\Debug\NextGenPC.pdb
+C:\Users\Edward\Documents\Lectii\Web\NextGenPC\NextGenPC\bin\Antlr3.Runtime.dll
+C:\Users\Edward\Documents\Lectii\Web\NextGenPC\NextGenPC\bin\Newtonsoft.Json.dll
+C:\Users\Edward\Documents\Lectii\Web\NextGenPC\NextGenPC\bin\System.Web.Optimization.dll
+C:\Users\Edward\Documents\Lectii\Web\NextGenPC\NextGenPC\bin\WebGrease.dll
+C:\Users\Edward\Documents\Lectii\Web\NextGenPC\NextGenPC\bin\Antlr3.Runtime.pdb
+C:\Users\Edward\Documents\Lectii\Web\NextGenPC\NextGenPC\bin\Newtonsoft.Json.xml
+C:\Users\Edward\Documents\Lectii\Web\NextGenPC\NextGenPC\bin\System.Web.Optimization.xml
