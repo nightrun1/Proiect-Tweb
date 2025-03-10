@@ -20,7 +20,8 @@ namespace NextGenPC.App_Start
                 "~/Scripts/plugins/morris-chart/css/morris.css",
                 "~/Scripts/plugins/jquery-ui/smoothness/jquery-ui.min.css",
                 "~/Content/css/style.css",
-                "~/Content/css/responsive.css"
+                "~/Content/css/responsive.css",
+                "~/Content/css/styleTemp.css"
             ));
 
             // Bundle pentru JS

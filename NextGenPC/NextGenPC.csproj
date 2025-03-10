@@ -100,8 +100,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\animate.min.css" />
-    <Content Include="Content\css\index.html" />
     <Content Include="Content\css\responsive.css" />
+    <Content Include="Content\css\styleTemp.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
@@ -2035,7 +2035,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\plugins\datatables-\extensions\FixedColumns\examples\integration\" />
-    <Folder Include="Views\About\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
