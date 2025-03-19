@@ -1,10 +1,12 @@
+@model NextGenPC.Web.Models.UserLogin
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NextGen PC</title>
+    <title>NextGen PC - High Performance Computers</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -220,11 +222,46 @@
         .cart-overlay.show {
             display: block;
         }
+        .sticky-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .login-dropdown {
+            min-width: 300px;
+            padding: 15px;
+        }
+        .login-dropdown form {
+            margin-bottom: 0;
+        }
+        .main-content {
+            padding-top: 56px; /* Height of navbar */
+        }
+        .navbar-nav .nav-item {
+            position: relative;
+        }
+        .login-trigger {
+            cursor: pointer;
+        }
+        .login-dropdown {
+            position: absolute;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+        .login-dropdown.show {
+            display: block;
+        }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-nav">
         <div class="container navbar-container d-flex justify-content-between">
             <a class="navbar-brand" href="@Url.Action("Index", "Home")">NextGen PC</a>
             <div class="d-flex align-items-center">
@@ -241,603 +278,626 @@
             </div>
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="@Url.Action("Index", "Home")">Home <span class="sr-only">(current)</span></a>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("AboutUs", "Home")">About us</a>
+                        <a class="nav-link" href="@Url.Action("AboutUs", "Home")">About Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Contacts", "Home")">Contacts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link login-trigger" onclick="toggleLogin()">Login</a>
+                        <div class="login-dropdown">
+                            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.Credential, "Username")
+                                    @Html.TextBoxFor(m => m.Credential, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Credential, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.Password)
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Login</button>
+                            }
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-1624705002806-5d72df19c3ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Hero Image">
-        <div class="hero-text">
-            <div class="container mt-4">
-                <h1>Welcome to NextGen PC</h1>
-                <p>Take your feelings to a <span class="cyan-text">next</span> level.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-lg-3 bg-white p-4 rounded-lg shadow-sm">
-                <h2 class="text-lg font-semibold mb-4">Filters</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Price Range ($)</label>
-                        <input type="range" class="form-control-range" min="0" max="5000">
-                        <div class="d-flex justify-content-between text-sm text-gray-600 mt-1">
-                            <span>$0</span>
-                            <span>$5000</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Power Consumption (W)</label>
-                        <input type="range" class="form-control-range" min="0" max="1200">
-                        <div class="d-flex justify-content-between text-sm text-gray-600 mt-1">
-                            <span>0W</span>
-                            <span>1200W</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">RAM</label>
-                        <select class="form-control">
-                            <option value="all">All</option>
-                            <option value="32">32GB</option>
-                            <option value="64">64GB</option>
-                            <option value="128">128GB</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Storage</label>
-                        <select class="form-control">
-                            <option value="all">All</option>
-                            <option value="2000">2TB</option>
-                            <option value="4000">4TB</option>
-                            <option value="8000">8TB</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Processor</label>
-                        <select class="form-control">
-                            <option value="all">All</option>
-                            <option value="Intel i9-13900K">Intel i9-13900K</option>
-                            <option value="AMD Ryzen 9 7950X">AMD Ryzen 9 7950X</option>
-                            <option value="Intel i9-13900KS">Intel i9-13900KS</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Graphics Card</label>
-                        <select class="form-control">
-                            <option value="all">All</option>
-                            <option value="RTX 4070">RTX 4070</option>
-                            <option value="RTX 4080">RTX 4080</option>
-                            <option value="RTX 4090">RTX 4090</option>
-                        </select>
-                    </div>
+    <div class="main-content">
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1624705002806-5d72df19c3ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Hero Image">
+            <div class="hero-text">
+                <div class="container mt-4">
+                    <h1>Welcome to NextGen PC</h1>
+                    <p>Take your feelings to a <span class="cyan-text">next</span> level.</p>
                 </div>
             </div>
+        </div>
 
-            <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <span class="badge badge-new">New</span>
-                            <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Gaming Beast Pro">
-                            <div class="card-body">
-                                <h5 class="card-title">Gaming Beast Pro</h5>
-                                <div class="price-tag">$2499</div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Power Supply</span>
-                                    <span>850W</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">RAM</span>
-                                    <span>32GB DDR5</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Storage</span>
-                                    <span>2TB NVMe SSD</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">CPU</span>
-                                    <span>Intel i9-13900K</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">GPU</span>
-                                    <span>RTX 4080</span>
-                                </div>
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
-                                    <button class="btn-cart" onclick="addToCart({
-                                        id: '@Guid.NewGuid()',
-                                        name: 'Gaming Beast Pro',
-                                        price: 2499,
-                                        image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                                    })">
-                                        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                                        </svg>
-                                    </button>
+
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg-3 bg-white p-4 rounded-lg shadow-sm">
+                    <h2 class="text-lg font-semibold mb-4">Filters</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Price Range ($)</label>
+                            <input type="range" class="form-control-range" min="0" max="5000">
+                            <div class="d-flex justify-content-between text-sm text-gray-600 mt-1">
+                                <span>$0</span>
+                                <span>$5000</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Power Consumption (W)</label>
+                            <input type="range" class="form-control-range" min="0" max="1200">
+                            <div class="d-flex justify-content-between text-sm text-gray-600 mt-1">
+                                <span>0W</span>
+                                <span>1200W</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">RAM</label>
+                            <select class="form-control">
+                                <option value="all">All</option>
+                                <option value="32">32GB</option>
+                                <option value="64">64GB</option>
+                                <option value="128">128GB</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Storage</label>
+                            <select class="form-control">
+                                <option value="all">All</option>
+                                <option value="2000">2TB</option>
+                                <option value="4000">4TB</option>
+                                <option value="8000">8TB</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Processor</label>
+                            <select class="form-control">
+                                <option value="all">All</option>
+                                <option value="Intel i9-13900K">Intel i9-13900K</option>
+                                <option value="AMD Ryzen 9 7950X">AMD Ryzen 9 7950X</option>
+                                <option value="Intel i9-13900KS">Intel i9-13900KS</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Graphics Card</label>
+                            <select class="form-control">
+                                <option value="all">All</option>
+                                <option value="RTX 4070">RTX 4070</option>
+                                <option value="RTX 4080">RTX 4080</option>
+                                <option value="RTX 4090">RTX 4090</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <div class="card h-100 product-card">
+                                <span class="badge badge-new">New</span>
+                                <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Gaming Beast Pro">
+                                <div class="card-body">
+                                    <h5 class="card-title">Gaming Beast Pro</h5>
+                                    <div class="price-tag">$2499</div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Power Supply</span>
+                                        <span>850W</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">RAM</span>
+                                        <span>32GB DDR5</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Storage</span>
+                                        <span>2TB NVMe SSD</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">CPU</span>
+                                        <span>Intel i9-13900K</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">GPU</span>
+                                        <span>RTX 4080</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
+                                        <button class="btn-cart" onclick="addToCart({
+                                            id: '@Guid.NewGuid()',
+                                            name: 'Gaming Beast Pro',
+                                            price: 2499,
+                                            image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                                        })">
+                                            <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <span class="badge badge-sale">Sale</span>
-                            <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Workstation Elite">
-                            <div class="card-body">
-                                <h5 class="card-title">Workstation Elite</h5>
-                                <div class="price-tag">$1899</div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Power Supply</span>
-                                    <span>750W</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">RAM</span>
-                                    <span>64GB DDR5</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Storage</span>
-                                    <span>4TB NVMe SSD</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">CPU</span>
-                                    <span>AMD Ryzen 9 7950X</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">GPU</span>
-                                    <span>RTX 4070</span>
-                                </div>
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
-                                    <button class="btn-cart" onclick="addToCart({
-                                        id: '@Guid.NewGuid()',
-                                        name: 'Workstation Elite',
-                                        price: 1899,
-                                        image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                                    })">
-                                        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <span class="badge badge-new">New</span>
-                            <img src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Creator's Dream">
-                            <div class="card-body">
-                                <h5 class="card-title">Creator's Dream</h5>
-                                <div class="price-tag">$3299</div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Power Supply</span>
-                                    <span>1000W</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">RAM</span>
-                                    <span>128GB DDR5</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Storage</span>
-                                    <span>8TB NVMe SSD</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">CPU</span>
-                                    <span>Intel i9-13900KS</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">GPU</span>
-                                    <span>RTX 4090</span>
-                                </div>
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
-                                    <button class="btn-cart" onclick="addToCart({
-                                        id: '@Guid.NewGuid()',
-                                        name: 'Creator\'s Dream',
-                                        price: 3299,
-                                        image: 'https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                                    })">
-                                        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                                        </svg>
-                                    </button>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <div class="card h-100 product-card">
+                                <span class="badge badge-sale">Sale</span>
+                                <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Workstation Elite">
+                                <div class="card-body">
+                                    <h5 class="card-title">Workstation Elite</h5>
+                                    <div class="price-tag">$1899</div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Power Supply</span>
+                                        <span>750W</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">RAM</span>
+                                        <span>64GB DDR5</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Storage</span>
+                                        <span>4TB NVMe SSD</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">CPU</span>
+                                        <span>AMD Ryzen 9 7950X</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">GPU</span>
+                                        <span>RTX 4070</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
+                                        <button class="btn-cart" onclick="addToCart({
+                                            id: '@Guid.NewGuid()',
+                                            name: 'Workstation Elite',
+                                            price: 1899,
+                                            image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                                        })">
+                                            <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Streaming Pro">
-                            <div class="card-body">
-                                <h5 class="card-title">Streaming Pro</h5>
-                                <div class="price-tag">$1999</div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Power Supply</span>
-                                    <span>750W</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">RAM</span>
-                                    <span>32GB DDR5</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Storage</span>
-                                    <span>2TB NVMe SSD</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">CPU</span>
-                                    <span>AMD Ryzen 7 7800X3D</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">GPU</span>
-                                    <span>RTX 4070 Ti</span>
-                                </div>
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
-                                    <button class="btn-cart" onclick="addToCart({
-                                        id: '@Guid.NewGuid()',
-                                        name: 'Streaming Pro',
-                                        price: 1999,
-                                        image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                                    })">
-                                        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <span class="badge badge-sale">Sale</span>
-                            <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Budget Gaming">
-                            <div class="card-body">
-                                <h5 class="card-title">Budget Gaming</h5>
-                                <div class="price-tag">$1299</div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Power Supply</span>
-                                    <span>650W</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">RAM</span>
-                                    <span>16GB DDR5</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Storage</span>
-                                    <span>1TB NVMe SSD</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">CPU</span>
-                                    <span>Intel i5-13600K</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">GPU</span>
-                                    <span>RTX 4060 Ti</span>
-                                </div>
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
-                                    <button class="btn-cart" onclick="addToCart({
-                                        id: '@Guid.NewGuid()',
-                                        name: 'Budget Gaming',
-                                        price: 1299,
-                                        image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                                    })">
-                                        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                                        </svg>
-                                    </button>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <div class="card h-100 product-card">
+                                <span class="badge badge-new">New</span>
+                                <img src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Creator's Dream">
+                                <div class="card-body">
+                                    <h5 class="card-title">Creator's Dream</h5>
+                                    <div class="price-tag">$3299</div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Power Supply</span>
+                                        <span>1000W</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">RAM</span>
+                                        <span>128GB DDR5</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Storage</span>
+                                        <span>8TB NVMe SSD</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">CPU</span>
+                                        <span>Intel i9-13900KS</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">GPU</span>
+                                        <span>RTX 4090</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
+                                        <button class="btn-cart" onclick="addToCart({
+                                            id: '@Guid.NewGuid()',
+                                            name: 'Creator\'s Dream',
+                                            price: 3299,
+                                            image: 'https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                                        })">
+                                            <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <span class="badge badge-new">New</span>
-                            <img src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="AI Workstation">
-                            <div class="card-body">
-                                <h5 class="card-title">AI Workstation</h5>
-                                <div class="price-tag">$3999</div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Power Supply</span>
-                                    <span>1200W</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">RAM</span>
-                                    <span>256GB DDR5</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Storage</span>
-                                    <span>16TB NVMe SSD</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">CPU</span>
-                                    <span>AMD Threadripper 7980X</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">GPU</span>
-                                    <span>RTX 4090 x2</span>
-                                </div>
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
-                                    <button class="btn-cart" onclick="addToCart({
-                                        id: '@Guid.NewGuid()',
-                                        name: 'AI Workstation',
-                                        price: 3999,
-                                        image: 'https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                                    })">
-                                        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Home Office">
-                            <div class="card-body">
-                                <h5 class="card-title">Home Office</h5>
-                                <div class="price-tag">$999</div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Power Supply</span>
-                                    <span>550W</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">RAM</span>
-                                    <span>16GB DDR5</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Storage</span>
-                                    <span>1TB NVMe SSD</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">CPU</span>
-                                    <span>AMD Ryzen 5 7600X</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">GPU</span>
-                                    <span>RTX 4060</span>
-                                </div>
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
-                                    <button class="btn-cart" onclick="addToCart({
-                                        id: '@Guid.NewGuid()',
-                                        name: 'Home Office',
-                                        price: 999,
-                                        image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                                    })">
-                                        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                                        </svg>
-                                    </button>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <div class="card h-100 product-card">
+                                <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Streaming Pro">
+                                <div class="card-body">
+                                    <h5 class="card-title">Streaming Pro</h5>
+                                    <div class="price-tag">$1999</div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Power Supply</span>
+                                        <span>750W</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">RAM</span>
+                                        <span>32GB DDR5</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Storage</span>
+                                        <span>2TB NVMe SSD</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">CPU</span>
+                                        <span>AMD Ryzen 7 7800X3D</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">GPU</span>
+                                        <span>RTX 4070 Ti</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
+                                        <button class="btn-cart" onclick="addToCart({
+                                            id: '@Guid.NewGuid()',
+                                            name: 'Streaming Pro',
+                                            price: 1999,
+                                            image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                                        })">
+                                            <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <span class="badge badge-sale">Sale</span>
-                            <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Video Editing">
-                            <div class="card-body">
-                                <h5 class="card-title">Video Editing</h5>
-                                <div class="price-tag">$2799</div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Power Supply</span>
-                                    <span>850W</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">RAM</span>
-                                    <span>64GB DDR5</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Storage</span>
-                                    <span>4TB NVMe SSD</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">CPU</span>
-                                    <span>Intel i7-13700K</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">GPU</span>
-                                    <span>RTX 4080</span>
-                                </div>
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
-                                    <button class="btn-cart" onclick="addToCart({
-                                        id: '@Guid.NewGuid()',
-                                        name: 'Video Editing',
-                                        price: 2799,
-                                        image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                                    })">
-                                        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <span class="badge badge-new">New</span>
-                            <img src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="VR Ready">
-                            <div class="card-body">
-                                <h5 class="card-title">VR Ready</h5>
-                                <div class="price-tag">$3499</div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Power Supply</span>
-                                    <span>1000W</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">RAM</span>
-                                    <span>32GB DDR5</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Storage</span>
-                                    <span>2TB NVMe SSD</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">CPU</span>
-                                    <span>AMD Ryzen 9 7950X3D</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">GPU</span>
-                                    <span>RTX 4090</span>
-                                </div>
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
-                                    <button class="btn-cart" onclick="addToCart({
-                                        id: '@Guid.NewGuid()',
-                                        name: 'VR Ready',
-                                        price: 3499,
-                                        image: 'https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                                    })">
-                                        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                                        </svg>
-                                    </button>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <div class="card h-100 product-card">
+                                <span class="badge badge-sale">Sale</span>
+                                <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Budget Gaming">
+                                <div class="card-body">
+                                    <h5 class="card-title">Budget Gaming</h5>
+                                    <div class="price-tag">$1299</div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Power Supply</span>
+                                        <span>650W</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">RAM</span>
+                                        <span>16GB DDR5</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Storage</span>
+                                        <span>1TB NVMe SSD</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">CPU</span>
+                                        <span>Intel i5-13600K</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">GPU</span>
+                                        <span>RTX 4060 Ti</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
+                                        <button class="btn-cart" onclick="addToCart({
+                                            id: '@Guid.NewGuid()',
+                                            name: 'Budget Gaming',
+                                            price: 1299,
+                                            image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                                        })">
+                                            <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Product 10 -->
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Server Build">
-                            <div class="card-body">
-                                <h5 class="card-title">Server Build</h5>
-                                <div class="price-tag">$4999</div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Power Supply</span>
-                                    <span>1600W</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">RAM</span>
-                                    <span>512GB DDR5</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Storage</span>
-                                    <span>32TB NVMe SSD</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">CPU</span>
-                                    <span>AMD EPYC 9654</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">GPU</span>
-                                    <span>RTX 4090 x4</span>
-                                </div>
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
-                                    <button class="btn-cart" onclick="addToCart({
-                                        id: '@Guid.NewGuid()',
-                                        name: 'Server Build',
-                                        price: 4999,
-                                        image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                                    })">
-                                        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <span class="badge badge-sale">Sale</span>
-                            <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Student Special">
-                            <div class="card-body">
-                                <h5 class="card-title">Student Special</h5>
-                                <div class="price-tag">$899</div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Power Supply</span>
-                                    <span>500W</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">RAM</span>
-                                    <span>16GB DDR5</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Storage</span>
-                                    <span>512GB NVMe SSD</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">CPU</span>
-                                    <span>Intel i3-13100F</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">GPU</span>
-                                    <span>RTX 3050</span>
-                                </div>
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
-                                    <button class="btn-cart" onclick="addToCart({
-                                        id: '@Guid.NewGuid()',
-                                        name: 'Student Special',
-                                        price: 899,
-                                        image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                                    })">
-                                        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                                        </svg>
-                                    </button>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <div class="card h-100 product-card">
+                                <span class="badge badge-new">New</span>
+                                <img src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="AI Workstation">
+                                <div class="card-body">
+                                    <h5 class="card-title">AI Workstation</h5>
+                                    <div class="price-tag">$3999</div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Power Supply</span>
+                                        <span>1200W</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">RAM</span>
+                                        <span>256GB DDR5</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Storage</span>
+                                        <span>16TB NVMe SSD</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">CPU</span>
+                                        <span>AMD Threadripper 7980X</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">GPU</span>
+                                        <span>RTX 4090 x2</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
+                                        <button class="btn-cart" onclick="addToCart({
+                                            id: '@Guid.NewGuid()',
+                                            name: 'AI Workstation',
+                                            price: 3999,
+                                            image: 'https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                                        })">
+                                            <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <span class="badge badge-new">New</span>
-                            <img src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Content Creation">
-                            <div class="card-body">
-                                <h5 class="card-title">Content Creation</h5>
-                                <div class="price-tag">$2999</div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Power Supply</span>
-                                    <span>850W</span>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <div class="card h-100 product-card">
+                                <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Home Office">
+                                <div class="card-body">
+                                    <h5 class="card-title">Home Office</h5>
+                                    <div class="price-tag">$999</div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Power Supply</span>
+                                        <span>550W</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">RAM</span>
+                                        <span>16GB DDR5</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Storage</span>
+                                        <span>1TB NVMe SSD</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">CPU</span>
+                                        <span>AMD Ryzen 5 7600X</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">GPU</span>
+                                        <span>RTX 4060</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
+                                        <button class="btn-cart" onclick="addToCart({
+                                            id: '@Guid.NewGuid()',
+                                            name: 'Home Office',
+                                            price: 999,
+                                            image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                                        })">
+                                            <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">RAM</span>
-                                    <span>64GB DDR5</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <div class="card h-100 product-card">
+                                <span class="badge badge-sale">Sale</span>
+                                <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Video Editing">
+                                <div class="card-body">
+                                    <h5 class="card-title">Video Editing</h5>
+                                    <div class="price-tag">$2799</div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Power Supply</span>
+                                        <span>850W</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">RAM</span>
+                                        <span>64GB DDR5</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Storage</span>
+                                        <span>4TB NVMe SSD</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">CPU</span>
+                                        <span>Intel i7-13700K</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">GPU</span>
+                                        <span>RTX 4080</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
+                                        <button class="btn-cart" onclick="addToCart({
+                                            id: '@Guid.NewGuid()',
+                                            name: 'Video Editing',
+                                            price: 2799,
+                                            image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                                        })">
+                                            <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Storage</span>
-                                    <span>4TB NVMe SSD</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <div class="card h-100 product-card">
+                                <span class="badge badge-new">New</span>
+                                <img src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="VR Ready">
+                                <div class="card-body">
+                                    <h5 class="card-title">VR Ready</h5>
+                                    <div class="price-tag">$3499</div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Power Supply</span>
+                                        <span>1000W</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">RAM</span>
+                                        <span>32GB DDR5</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Storage</span>
+                                        <span>2TB NVMe SSD</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">CPU</span>
+                                        <span>AMD Ryzen 9 7950X3D</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">GPU</span>
+                                        <span>RTX 4090</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
+                                        <button class="btn-cart" onclick="addToCart({
+                                            id: '@Guid.NewGuid()',
+                                            name: 'VR Ready',
+                                            price: 3499,
+                                            image: 'https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                                        })">
+                                            <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">CPU</span>
-                                    <span>AMD Ryzen 9 7900X</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <div class="card h-100 product-card">
+                                <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Server Build">
+                                <div class="card-body">
+                                    <h5 class="card-title">Server Build</h5>
+                                    <div class="price-tag">$4999</div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Power Supply</span>
+                                        <span>1600W</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">RAM</span>
+                                        <span>512GB DDR5</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Storage</span>
+                                        <span>32TB NVMe SSD</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">CPU</span>
+                                        <span>AMD EPYC 9654</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">GPU</span>
+                                        <span>RTX 4090 x4</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
+                                        <button class="btn-cart" onclick="addToCart({
+                                            id: '@Guid.NewGuid()',
+                                            name: 'Server Build',
+                                            price: 4999,
+                                            image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                                        })">
+                                            <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">GPU</span>
-                                    <span>RTX 4080</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <div class="card h-100 product-card">
+                                <span class="badge badge-sale">Sale</span>
+                                <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Student Special">
+                                <div class="card-body">
+                                    <h5 class="card-title">Student Special</h5>
+                                    <div class="price-tag">$899</div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Power Supply</span>
+                                        <span>500W</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">RAM</span>
+                                        <span>16GB DDR5</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Storage</span>
+                                        <span>512GB NVMe SSD</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">CPU</span>
+                                        <span>Intel i3-13100F</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">GPU</span>
+                                        <span>RTX 3050</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
+                                        <button class="btn-cart" onclick="addToCart({
+                                            id: '@Guid.NewGuid()',
+                                            name: 'Student Special',
+                                            price: 899,
+                                            image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                                        })">
+                                            <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
-                                    <button class="btn-cart" onclick="addToCart({
-                                        id: '@Guid.NewGuid()',
-                                        name: 'Content Creation',
-                                        price: 2999,
-                                        image: 'https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                                    })">
-                                        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                                        </svg>
-                                    </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <div class="card h-100 product-card">
+                                <span class="badge badge-new">New</span>
+                                <img src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Content Creation">
+                                <div class="card-body">
+                                    <h5 class="card-title">Content Creation</h5>
+                                    <div class="price-tag">$2999</div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Power Supply</span>
+                                        <span>850W</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">RAM</span>
+                                        <span>64GB DDR5</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Storage</span>
+                                        <span>4TB NVMe SSD</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">CPU</span>
+                                        <span>AMD Ryzen 9 7900X</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">GPU</span>
+                                        <span>RTX 4080</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="#" class="btn btn-view-details flex-grow-1">View Details</a>
+                                        <button class="btn-cart" onclick="addToCart({
+                                            id: '@Guid.NewGuid()',
+                                            name: 'Content Creation',
+                                            price: 2999,
+                                            image: 'https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                                        })">
+                                            <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -916,6 +976,39 @@
         function checkout() {
             alert('Checkout functionality coming soon!');
         }
+
+        function toggleLogin() {
+            const dropdown = document.querySelector('.login-dropdown');
+            dropdown.classList.toggle('show');
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInside = dropdown.contains(event.target) || 
+                                    event.target.classList.contains('login-trigger');
+                
+                if (!isClickInside && dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                }
+            });
+        }
+
+        // Close login dropdown when clicking cart
+        document.querySelector('.btn-cart').addEventListener('click', function() {
+            const dropdown = document.querySelector('.login-dropdown');
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // Initialize sticky navbar
+        window.onscroll = function() {
+            const navbar = document.querySelector('.sticky-nav');
+            if (window.pageYOffset > 0) {
+                navbar.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        };
 
         updateCartCount();
         updateCartDisplay();

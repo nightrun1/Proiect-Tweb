@@ -1,11 +1,10 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextGenPC.Domain", "NextGenPC.Domain\NextGenPC.Domain.csproj", "{81138B1C-7416-4B55-9F28-FF86CC92343F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextGenPC.Model", "NextGenPC.Model\NextGenPC.Model.csproj", "{553F9727-E6AD-4A8C-876D-D935D8571C15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextGenPC.BusinessLogic", "NextGenPC.BusinessLogic\NextGenPC.BusinessLogic.csproj", "{553F9727-E6AD-4A8C-876D-D935D8571C15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextGenPC.Data", "NextGenPC.Data\NextGenPC.Data.csproj", "{1AAC6A45-DDDC-47FB-A00E-CE2F2CE6E99A}"
 EndProject

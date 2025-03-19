@@ -7,6 +7,10 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+// Register default user
+var sessionBL = NextGenPC.BusinessLogic.BusinessLogicManager.GetSessionBL();
+((NextGenPC.BusinessLogic.SessionBL)sessionBL).Register("user", "user", "user@example.com");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

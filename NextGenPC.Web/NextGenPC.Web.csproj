@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NextGenPC.Model\NextGenPC.Model.csproj" />
+    <ProjectReference Include="..\NextGenPC.BusinessLogic\NextGenPC.BusinessLogic.csproj" />
   </ItemGroup>
 
 </Project>
