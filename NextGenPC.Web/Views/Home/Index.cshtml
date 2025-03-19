@@ -257,6 +257,22 @@
         .login-dropdown.show {
             display: block;
         }
+        .login-dropdown.show {
+            display: block;
+        }
+        .logged-in-text {
+            color: #28a745;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            display: inline-flex;
+            align-items: center;
+        }
+        .logged-in-text:before {
+            content: '●';
+            color: #28a745;
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 
@@ -289,25 +305,32 @@
                         <a class="nav-link" href="@Url.Action("Contacts", "Home")">Contacts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link login-trigger" onclick="toggleLogin()">Login</a>
-                        <div class="login-dropdown">
-                            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                <div class="form-group mb-3">
-                                    @Html.LabelFor(m => m.Credential, "Username")
-                                    @Html.TextBoxFor(m => m.Credential, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Credential, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group mb-3">
-                                    @Html.LabelFor(m => m.Password)
-                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100">Login</button>
-                            }
-                        </div>
+                        @if (ViewBag.IsAuthenticated)
+                        {
+                            <span class="nav-link logged-in-text">Logged in as @ViewBag.Username</span>
+                        }
+                        else
+                        {
+                            <a class="nav-link login-trigger" onclick="toggleLogin()">Login</a>
+                            <div class="login-dropdown">
+                                @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group mb-3">
+                                        @Html.LabelFor(m => m.Credential, "Username")
+                                        @Html.TextBoxFor(m => m.Credential, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Credential, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        @Html.LabelFor(m => m.Password)
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                                }
+                            </div>
+                        }
                     </li>
                 </ul>
             </div>
