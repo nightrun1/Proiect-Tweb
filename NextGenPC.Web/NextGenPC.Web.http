@@ -1,0 +1,6 @@
+@NextGenPC.Web_HostAddress = http://localhost:5052
+
+GET {{NextGenPC.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
