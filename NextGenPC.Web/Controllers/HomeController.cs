@@ -16,8 +16,9 @@ namespace NextGenPC.Web.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.IsAuthenticated = _businessLogic.User is SessionBL sessionBL && sessionBL.IsAuthenticated;
-            ViewBag.Username = _businessLogic.User is SessionBL sessionBL ? sessionBL.UserId : null;
+            var sessionBL = _businessLogic.User as SessionBL;
+            ViewBag.IsAuthenticated = sessionBL?.IsAuthenticated ?? false;
+            ViewBag.Username = sessionBL?.UserId;
             return View();
         }
 
