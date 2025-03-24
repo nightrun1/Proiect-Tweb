@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About NextGen PC</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container navbar-container d-flex justify-content-between">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">NextGen PC</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="@Url.Action("AboutUs", "Home")">About us <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Contacts", "Home")">Contacts</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="text-center mb-4">
+            <h1 class="display-4 font-weight-bold text-dark mb-4">About NextGen PC</h1>
+            <p class="lead text-muted">Crafting the future of computing, one build at a time</p>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6 mb-4">
+                <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Our Workshop" class="rounded-lg shadow-lg w-100 h-100 object-cover">
+                </div>
+            </div>
+            <div class="col-md-6 d-flex flex-column justify-content-center">
+                <h2 class="h2 font-weight-bold text-dark mb-4">Our Story</h2>
+                <p class="text-muted mb-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+                <p class="text-muted">
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <svg class="icon mb-4">
+                        <use xlink:href="#monitor"></use>
+                    </svg>
+                    <h3 class="h5 font-weight-semibold text-dark mb-2">Custom Builds</h3>
+                    <p class="text-muted">Tailored to your specific needs and preferences</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <svg class="icon mb-4">
+                        <use xlink:href="#cpu"></use>
+                    </svg>
+                    <h3 class="h5 font-weight-semibold text-dark mb-2">Latest Tech</h3>
+                    <p class="text-muted">Access to cutting-edge components</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <svg class="icon mb-4">
+                        <use xlink:href="#memory"></use>
+                    </svg>
+                    <h3 class="h5 font-weight-semibold text-dark mb-2">Expert Assembly</h3>
+                    <p class="text-muted">Professional building and testing</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <svg class="icon mb-4">
+                        <use xlink:href="#hard-drive"></use>
+                    </svg>
+                    <h3 class="h5 font-weight-semibold text-dark mb-2">Support</h3>
+                    <p class="text-muted">Lifetime technical assistance</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+            <h2 class="h2 font-weight-bold text-dark mb-4">Our Mission</h2>
+            <p class="text-muted">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Icons -->
+    <svg style="display: none;">
+        <symbol id="monitor" viewBox="0 0 24 24">
+            <path d="M21 16V4H3v12h18zm0-14c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2h-7v2h3v2H7v-2h3v-2H3c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h18z"></path>
+        </symbol>
+        <symbol id="cpu" viewBox="0 0 24 24">
+            <path d="M9 9h6v6H9V9zm11-4h-2V3h-2v2h-6V3H8v2H6c-1.1 0-2 .9-2 2v6H2v2h2v6c0 1.1.9 2 2 2h2v2h2v-2h6v2h2v-2h2c1.1 0 2-.9 2-2v-6h2v-2h-2V7c0-1.1-.9-2-2-2zm0 14H6V7h12v12z"></path>
+        </symbol>
+        <symbol id="memory" viewBox="0 0 24 24">
+            <path d="M15 9H9v6h6V9zm4-4H5v14h14V5zm0-2c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2h-3v2h-2v-2H10v2H8v-2H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h14z"></path>
+        </symbol>
+        <symbol id="hard-drive" viewBox="0 0 24 24">
+            <path d="M5 14h2v2H5v-2zm12 0h2v2h-2v-2zm4-10H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2v-6h2v-2h-2V7c0-1.1-.9-2-2-2zm0 14H3V6h18v12z"></path>
+        </symbol>
+    </svg>
+</body>
+
+</html> 
