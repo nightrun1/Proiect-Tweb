@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace NextGenPC.Controllers
 {
-    public class HomeController : Controller
+    public class ContactsController : Controller
     {
-        // GET: Home
+        // GET: Contacts
         public ActionResult Index()
         {
             return View();

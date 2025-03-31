@@ -1913,7 +1913,10 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AboutUSController.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2022,8 +2025,9 @@
     <Content Include="Scripts\plugins\uikit\fonts\fontawesome-webfont.ttf" />
     <Content Include="Scripts\plugins\uikit\fonts\fontawesome-webfont.woff" />
     <Content Include="Scripts\plugins\uikit\fonts\FontAwesome.otf" />
-    <Content Include="Views\Home\AboutUs.cshtml" />
-    <Content Include="Views\Home\Contacts.cshtml" />
+    <Content Include="Views\AboutUS\Index.cshtml" />
+    <Content Include="Views\Contacts\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2035,6 +2039,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\plugins\datatables-\extensions\FixedColumns\examples\integration\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NextGenPC.BusinessLogic\NextGenPC.BusinessLogic.csproj">
+      <Project>{043c1b4c-ecec-4bd2-900d-e538cea87d35}</Project>
+      <Name>NextGenPC.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NextGenPC.Domain\NextGenPC.Domain.csproj">
+      <Project>{9cc8a4d9-6f50-406a-a0f6-43119f8a32eb}</Project>
+      <Name>NextGenPC.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
