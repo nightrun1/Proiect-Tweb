@@ -1,0 +1,26 @@
+﻿@model NextGenPC.Domain.Entities.User.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div>
+        @Html.LabelFor(m => m.NameOrEmail)
+        @Html.TextBoxFor(m => m.NameOrEmail)
+        @Html.ValidationMessageFor(m => m.NameOrEmail)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+
+    <button type="submit">Login</button>
+}

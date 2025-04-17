@@ -5,13 +5,37 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NextGenPC.Domain.Enums;
 
 namespace NextGenPC.Domain.Entities.User
 {
-    class UDbTable
+    public class UDbTable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } 
+        public int Id { get; set; }
+
+        [Required]
+        [Display(Name = "Username")]
+        [StringLength(30, MinimumLength = 5, ErrorMessage = "Username cannot be longer than 30 characters and less 5 charachers")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Password")]
+        [StringLength(50, MinimumLength = 6, ErrorMessage = "Password cannot be longer than 50 characters and less 6 charachers")]
+        public string Password { get; set; }
+
+
+        [Required]
+        [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string Email { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime LastLogin { get; set; }
+
+        [StringLength(30)]
+        public string LasIp { get; set; }
+        public URole Level { get; set; }
     }
 }
