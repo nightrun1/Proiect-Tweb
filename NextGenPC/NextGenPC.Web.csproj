@@ -2035,9 +2035,10 @@
     <Content Include="Scripts\plugins\uikit\fonts\FontAwesome.otf" />
     <Content Include="Views\AboutUS\Index.cshtml" />
     <Content Include="Views\Contacts\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

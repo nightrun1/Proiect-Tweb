@@ -11,8 +11,12 @@
 
 </head>
 <body>
+    <!-- Header -->
+    @Html.Partial("_Header")
     @RenderBody()
 
+    <!-- Footer -->
+    @Html.Partial("_Footer")
     <!--JS Bundle-->>
     @Scripts.Render("~/bundles/js")
 </body>
