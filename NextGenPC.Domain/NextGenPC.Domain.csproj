@@ -45,10 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\User\LoginViewModel.cs" />
-    <Compile Include="Entities\User\RegisterViewModel.cs" />
     <Compile Include="Entities\User\UDbTable.cs" />
-    <Compile Include="Entities\User\ULoginData.cs" />
+    <Compile Include="Entities\User\UDataLogin.cs" />
+    <Compile Include="Entities\User\UDataRegister.cs" />
     <Compile Include="Enums\URole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

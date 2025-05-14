@@ -16,7 +16,10 @@
     @RenderBody()
 
     <!-- Footer -->
-    @Html.Partial("_Footer")
+    @if (ViewBag.HideFooter == null || ViewBag.HideFooter == false)
+    { 
+        @Html.Partial("_Footer")
+    }
     <!--JS Bundle-->>
     @Scripts.Render("~/bundles/js")
 </body>

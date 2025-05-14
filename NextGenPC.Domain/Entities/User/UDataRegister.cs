@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace NextGenPC.Domain.Entities.User
 {
-    public class LoginViewModel
+    public class UDataRegister
     {
-        [Required]
-        [Display(Name = "Username or Email")]
-        public string NameOrEmail { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
+        public string Name { get; set; }
+        public string Email { get; set; }
         public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+        public DateTime RegisterDataTime { get; set; }
     }
 
 }

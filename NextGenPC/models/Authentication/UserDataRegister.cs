@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NextGenPC.Domain.Entities.User
+namespace NextGenPC.Models.Authentication
 {
-    public class RegisterViewModel
+    public class UserDataRegister
     {
         [Required]
         [Display(Name = "Username")]

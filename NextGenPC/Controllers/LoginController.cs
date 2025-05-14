@@ -20,6 +20,7 @@ namespace NextGenPC.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            ViewBag.HideFooter = true;
             return View();
         }
 

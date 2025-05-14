@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NextGenPC.BusinessLogic.BLStruct;
 using NextGenPC.BusinessLogic.Interfaces;
 
 namespace NextGenPC.BusinessLogic
@@ -12,6 +8,11 @@ namespace NextGenPC.BusinessLogic
         public ISession GetSessionBL()
         {
             return new SessionBL();
+        }
+
+        public IRegister GetRegisterBL()
+        {
+            return new RegisterBL();
         }
     }
 }
