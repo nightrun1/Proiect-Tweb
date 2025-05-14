@@ -6,15 +6,25 @@ using System.Threading.Tasks;
 using NextGenPC.BusinessLogic.Core;
 using NextGenPC.BusinessLogic.Interfaces;
 using NextGenPC.Domain.Entities.User;
+using NextGenPC.Domain.Entities.User.UserActionResponse;
 
 namespace NextGenPC.BusinessLogic.BLStruct
 {
     public class SessionBL : UserApi, ISession
     {
-        //not implemented yet
-        /*public string LoginLogic(UDataRegister data)
+        public UserCookieResp GenerateCookieByUser(int id)
         {
-            return UserLoginLogic(data);
-        }*/
+            return GenerateCookieByUserAction(id);
+        }
+
+        public UserResp GetUserByCookie(string sessionKey)
+        {
+            return GetUserByCookieAction(sessionKey);
+        }
+
+        public UserResp LogInLogic(UDataLogin data)
+        {
+            return LogInUser(data);
+        }
     }
 }

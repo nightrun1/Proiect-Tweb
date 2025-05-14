@@ -18,7 +18,7 @@
                         @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
                         <div class="form-floating mb-3">
-                            @Html.TextBoxFor(m => m.NameOrEmail, new { @class = "form-control", type = "email", placeholder = "Email" })
+                            @Html.TextBoxFor(m => m.NameOrEmail, new { @class = "form-control", placeholder = "Nume sau email" })
                             @Html.ValidationMessageFor(m => m.NameOrEmail, "", new { @class = "text-danger small" })
                         </div>
 

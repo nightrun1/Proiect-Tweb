@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NextGenPC.BusinessLogic;
-using NextGenPC.BusinessLogic.Core;
 using NextGenPC.BusinessLogic.Interfaces;
 using NextGenPC.Domain.Entities.User;
+using NextGenPC.Domain.Entities.User.UserActionResponse;
+using NextGenPC.Domain.Enums;
 using NextGenPC.Models.Authentication;
 
 namespace NextGenPC.Controllers
@@ -31,16 +30,16 @@ namespace NextGenPC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(UserDataRegister model)
+        public ActionResult Register(UserDataRegister registerModel)
         {
             if (ModelState.IsValid)
             {
                 var data = new UDataRegister
                 {
-                    Name = model.Name,
-                    Email = model.Email,
-                    Password = model.Password,
-                    ConfirmPassword = model.ConfirmPassword,
+                    Name = registerModel.Name,
+                    Email = registerModel.Email,
+                    Password = registerModel.Password,
+                    ConfirmPassword = registerModel.ConfirmPassword,
                     RegisterDataTime = DateTime.Now
                 };
 
@@ -56,13 +55,13 @@ namespace NextGenPC.Controllers
                 {
                     // Handle exception (e.g., log it)
                     ModelState.AddModelError("", "An error occurred while registering. Please try again.");
-                    return View(model);
+                    return View(registerModel);
                 }
                 return RedirectToAction("Login");
 
             }
 
-            return View(model);
+            return View(registerModel);
         }
 
         // GET: /Account/Login
@@ -73,26 +72,82 @@ namespace NextGenPC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(UDataLogin model)
+        public ActionResult Login(UserDataLogin loginModel)
         {
             if (ModelState.IsValid)
             {
-                var user = UserApi.ValidateUser(model);
-                if (user != null)
+                var data = new UDataLogin
                 {
-                    Session["User"] = user.Name;
-                    return RedirectToAction("Index", "Home");
+                    NameOrEmail = loginModel.NameOrEmail,
+                    Password = loginModel.Password,
+                    LoginDataTime = DateTime.Now,
+                };
+
+                try
+                {
+                    // call BL for token
+                    var userResp = _session.LogInLogic(data);
+
+                    if (userResp.Status) //true
+                    {
+                        //Generarea unui cookie
+                        UserCookieResp userCookieResp = _session.GenerateCookieByUser(userResp.UserId);
+
+                        HttpCookie cookie = userCookieResp.cookie;
+                        Response.Cookies.Add(cookie);
+
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    else //false
+                    {
+                        switch (userResp.Result)
+                        {
+                            case LogInResult.EmailNotFound:
+                                TempData["ErrorMessage"] = "Nu exista utilizator cu asa nume.";
+                                break;
+                            case LogInResult.WrongPassword:
+                                TempData["ErrorMessage"] = "Parola incorecta.";
+                                break;
+                            default:
+                                TempData["ErrorMessage"] = "Incercati din nou";
+                                break;
+                        }
+                        return View(loginModel);
+                    }
                 }
 
-                ModelState.AddModelError("", "Invalid login or password.");
+                catch (Exception ex)
+                {
+                    // Eroare la procesarea cererii
+                    TempData["ErrorMessage"] = "A apărut o eroare în sistem. Vă rugăm să încercați mai târziu.";
+                    // Loghează excepția pentru depanare
+                    System.Diagnostics.Debug.WriteLine($"Error in SignUp: {ex.Message}");
+                }
             }
 
-            return View(model);
+            else
+            {
+                // Eroare pentru validarea mesajului
+                TempData["ErrorMessage"] = "Datele nu sunt valide. Introduceti din nou";
+            }
+            return View(loginModel);
         }
 
         public ActionResult Logout()
         {
+            // Sterge cookie-ul de autentificare
+            if (Request.Cookies["X-KEY"] != null)
+            {
+                var cookie = new HttpCookie("X-KEY");
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(cookie);
+            }
+
+            // Sterge sesiunea
             Session.Clear();
+            Session.Abandon();
+
             return RedirectToAction("Login");
         }
     }

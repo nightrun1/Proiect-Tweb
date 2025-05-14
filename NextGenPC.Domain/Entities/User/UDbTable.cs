@@ -22,7 +22,7 @@ namespace NextGenPC.Domain.Entities.User
 
         [Required]
         [Display(Name = "Password")]
-        [StringLength(50, MinimumLength = 6, ErrorMessage = "Password cannot be longer than 50 characters and less 6 charachers")]
+        [StringLength(200, MinimumLength = 6, ErrorMessage = "Password cannot be longer than 50 characters and less 6 charachers")]
         public string Password { get; set; }
 
 
