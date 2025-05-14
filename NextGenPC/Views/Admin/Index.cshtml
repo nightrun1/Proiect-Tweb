@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Panou de administrare</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Utilizatori</h5>
+                    <p class="card-text">Vizualizează și gestionează utilizatorii.</p>
+                    <a href="/Admin/Users" class="btn btn-light btn-sm">Deschide</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Comenzi</h5>
+                    <p class="card-text">Monitorizează comenzile efectuate.</p>
+                    <a href="/Admin/Orders" class="btn btn-light btn-sm">Deschide</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Produse</h5>
+                    <p class="card-text">Adaugă, editează sau șterge produse.</p>
+                    <a href="/Admin/Products" class="btn btn-light btn-sm">Deschide</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
