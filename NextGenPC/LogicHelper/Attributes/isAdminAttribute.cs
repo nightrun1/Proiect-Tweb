@@ -15,7 +15,7 @@ namespace NextGenPC.LogicHelper.Atributes
         private readonly ISession _session;
         public isAdminAttribute()
         {
-            var bl = new BusinessLogic.BusinesLogic();
+            var bl = new BusinessLogic.BusinessLogic();
             _session = bl.GetSessionBL();
         }
         public override void OnActionExecuting(ActionExecutingContext filterContext)

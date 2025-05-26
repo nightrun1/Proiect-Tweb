@@ -12,7 +12,7 @@ namespace NextGenPC.Controllers
         private readonly ISession _session;
         public BaseController()
         {
-            var bl = new BusinessLogic.BusinesLogic();
+            var bl = new BusinessLogic.BusinessLogic();
             _session = bl.GetSessionBL();
 
         }

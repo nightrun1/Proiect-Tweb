@@ -14,7 +14,7 @@ namespace NextGenPC.Controllers
         private readonly ISession _session;
         public LoginController()
         {
-            var bl = new BusinesLogic();
+            var bl = new BusinessLogic.BusinessLogic();
             _session = bl.GetSessionBL();
         }
         // GET: Login
