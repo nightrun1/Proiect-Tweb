@@ -31,6 +31,7 @@ namespace NextGenPC.Controllers
                     System.Web.HttpContext.Current.Session["LoginStatus"] = "login";
                     System.Web.HttpContext.Current.Session["UserFirstName"] = profile.Name;
                     System.Web.HttpContext.Current.Session["UserId"] = profile.UserId;
+                    System.Web.HttpContext.Current.Session["URole"] = profile.Role;
 
                 }
                 else
