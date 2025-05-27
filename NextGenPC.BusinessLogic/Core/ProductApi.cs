@@ -174,6 +174,30 @@ namespace NextGenPC.BusinessLogic.Core
             }
         }
 
-       
+        public List<ProdData> SearchProducts(string searchTerm)
+        {
+            using (var db = new ProductContext())
+            {
+                // Cautam produsele care contin termenul de cautare in nume, CPU, GPU, RAM sau Storage
+                return db.Products
+                    .Where(p => p.Name.Contains(searchTerm) ||
+                                p.CPU.Contains(searchTerm) ||
+                                p.GPU.Contains(searchTerm) ||
+                                p.RAM.Contains(searchTerm) ||
+                                p.Storage.Contains(searchTerm))
+                    .Select(p => new ProdData
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        ImageUrl = p.ImageUrl,
+                        CPU = p.CPU,
+                        GPU = p.GPU,
+                        RAM = p.RAM,
+                        Storage = p.Storage,
+                        StockQuantity = p.StockQuantity,
+                        Price = p.Price
+                    }).ToList();
+            }
+        }
     }
 }

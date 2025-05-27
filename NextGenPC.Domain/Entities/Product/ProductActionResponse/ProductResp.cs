@@ -11,6 +11,6 @@ namespace NextGenPC.Domain.Entities.Product.ProductActionResponse
     {
         public string Name { get; set; }
         public bool Status { get; set; }
-        public AddProductResult Result { get; set; }
+        public ProductResult Result { get; set; }
     }
 }
