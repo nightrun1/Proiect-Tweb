@@ -51,10 +51,11 @@
     <Compile Include="Entities\Product\ProductActionResponse\ProductResp.cs" />
     <Compile Include="Entities\Session\SessionDbTable.cs" />
     <Compile Include="Entities\User\UDbTable.cs" />
-    <Compile Include="Entities\User\UDataLogin.cs" />
-    <Compile Include="Entities\User\UDataRegister.cs" />
+    <Compile Include="Entities\User\UserDataEntities.cs" />
+    <Compile Include="Entities\User\UserDataLoginEntities.cs" />
     <Compile Include="Entities\User\UserActionResponse\UserCookieResp.cs" />
     <Compile Include="Entities\User\UserActionResponse\UserResp.cs" />
+    <Compile Include="Entities\User\UserDataRegisterEntities.cs" />
     <Compile Include="Enums\ProductResult.cs" />
     <Compile Include="Enums\LogInResult.cs" />
     <Compile Include="Enums\URole.cs" />

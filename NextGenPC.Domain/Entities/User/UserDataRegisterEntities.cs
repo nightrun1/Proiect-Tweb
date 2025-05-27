@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NextGenPC.Domain.Entities.User
 {
-    public class UDataRegister
+    public class UserDataRegisterEntities
     {
         public string Name { get; set; }
         public string Email { get; set; }

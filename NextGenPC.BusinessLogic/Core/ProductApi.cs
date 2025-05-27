@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using NextGenPC.BusinessLogic.DBModel;
 using NextGenPC.Domain.Entities.Product;
 using NextGenPC.Domain.Entities.Product.ProductActionResponse;
-using NextGenPC.Domain.Entities.User;
 using NextGenPC.Domain.Enums;
-using NextGenPC.Helpers.RegFlow;
 
 namespace NextGenPC.BusinessLogic.Core
 {
-    public class ProductApi
+    public class ProductAPI
     {
         public List<ProdData> GetProducts()
         {

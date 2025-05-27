@@ -34,7 +34,7 @@ namespace NextGenPC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var data = new UDataRegister
+                var data = new UserDataRegisterEntities
                 {
                     Name = registerModel.Name,
                     Email = registerModel.Email,
@@ -72,11 +72,11 @@ namespace NextGenPC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(UserDataLogin loginModel)
+        public ActionResult Login(Models.Authentication.UserDataLogin loginModel)
         {
             if (ModelState.IsValid)
             {
-                var data = new UDataLogin
+                var data = new Domain.Entities.User.UserDataLoginEntities
                 {
                     NameOrEmail = loginModel.NameOrEmail,
                     Password = loginModel.Password,

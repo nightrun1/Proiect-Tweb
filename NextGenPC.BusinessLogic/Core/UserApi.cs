@@ -12,9 +12,9 @@ using NextGenPC.Helpers.Session;
 
 namespace NextGenPC.BusinessLogic.Core
 {
-    public class UserApi
+    public class UserAPI
     {
-        public string RegisterUser(UDataRegister model)
+        public string RegisterUser(UserDataRegisterEntities model)
         {
             using (var db = new UserContext())
             {
@@ -41,7 +41,7 @@ namespace NextGenPC.BusinessLogic.Core
             }
         }
 
-        public UserResp LogInUser(UDataLogin model)
+        public UserResp LogInUser(UserDataLoginEntities model)
         {
             try
             {

@@ -9,9 +9,9 @@ using NextGenPC.Domain.Entities.User;
 
 namespace NextGenPC.BusinessLogic.BLStruct
 {
-    public class RegisterBL : UserApi, IRegister
+    public class RegisterBL : UserAPI, IRegister
     {
-        public string SignUpLogic(UDataRegister data)
+        public string SignUpLogic(UserDataRegisterEntities data)
         {
             return RegisterUser(data);
         }

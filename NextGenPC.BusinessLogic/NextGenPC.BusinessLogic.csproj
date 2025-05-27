@@ -56,9 +56,9 @@
     <Compile Include="BLStruct\ProductBL.cs" />
     <Compile Include="BLStruct\RegisterBL.cs" />
     <Compile Include="BusinessLogic.cs" />
-    <Compile Include="Core\AdminApi.cs" />
-    <Compile Include="Core\ProductApi.cs" />
-    <Compile Include="Core\UserApi.cs" />
+    <Compile Include="Core\AdminAPI.cs" />
+    <Compile Include="Core\ProductAPI.cs" />
+    <Compile Include="Core\UserAPI.cs" />
     <Compile Include="DBModel\ProductContext.cs" />
     <Compile Include="DBModel\SessionContext.cs" />
     <Compile Include="DBModel\UserContext.cs" />

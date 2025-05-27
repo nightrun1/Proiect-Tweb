@@ -10,7 +10,7 @@ using NextGenPC.Domain.Entities.Product.ProductActionResponse;
 
 namespace NextGenPC.BusinessLogic.BLStruct
 {
-    public class ProductBL : ProductApi, IProduct
+    public class ProductBL : ProductAPI, IProduct
     {
 
         public List<ProdData> GetAllProductsLogic()
@@ -25,6 +25,21 @@ namespace NextGenPC.BusinessLogic.BLStruct
         public ProductResp AddProductLogic(ProdData product)
         {
             return AddProduct(product);
+        }
+
+        public ProductResp UpdateProductLogic(ProdData product)
+        {
+            return UpdateProduct(product);
+        }
+
+        public ProductResp DeleteProductLogic(int id)
+        {
+            return DeleteProduct(id);
+        }
+
+        public List<ProdData> SearchProductsLogic(string searchTerm)
+        {
+            return SearchProducts(searchTerm);
         }
     }
 }

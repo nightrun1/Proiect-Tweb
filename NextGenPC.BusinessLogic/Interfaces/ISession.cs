@@ -10,7 +10,7 @@ namespace NextGenPC.BusinessLogic.Interfaces
 {
     public interface ISession
     {
-        UserResp LogInLogic(UDataLogin data);
+        UserResp LogInLogic(UserDataLoginEntities data);
         UserCookieResp GenerateCookieByUser(int id);
 
         UserResp GetUserByCookie(string sessionKey);

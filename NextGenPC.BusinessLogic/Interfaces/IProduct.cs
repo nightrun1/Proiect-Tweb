@@ -13,6 +13,8 @@ namespace NextGenPC.BusinessLogic.Interfaces
         List<ProdData> GetAllProductsLogic();
         ProdData GetProductByIdLogic(int id);
         ProductResp AddProductLogic(ProdData product);
-
+        ProductResp UpdateProductLogic(ProdData product);
+        ProductResp DeleteProductLogic(int id);
+        List<ProdData> SearchProductsLogic(string searchTerm);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NextGenPC.Domain.Entities.User
 {
-    public class UDataLogin
+    public class UserDataLoginEntities
     {
         public string NameOrEmail { get; set; }
         public string Password { get; set; }

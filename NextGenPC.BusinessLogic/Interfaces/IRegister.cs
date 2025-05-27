@@ -9,6 +9,6 @@ namespace NextGenPC.BusinessLogic.Interfaces
 {
     public interface IRegister
     {
-        string SignUpLogic(UDataRegister data);
+        string SignUpLogic(UserDataRegisterEntities data);
     }
 }

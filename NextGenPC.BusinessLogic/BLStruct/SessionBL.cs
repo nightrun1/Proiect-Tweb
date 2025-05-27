@@ -10,7 +10,7 @@ using NextGenPC.Domain.Entities.User.UserActionResponse;
 
 namespace NextGenPC.BusinessLogic.BLStruct
 {
-    public class SessionBL : UserApi, ISession
+    public class SessionBL : UserAPI, ISession
     {
         public UserCookieResp GenerateCookieByUser(int id)
         {
@@ -22,7 +22,7 @@ namespace NextGenPC.BusinessLogic.BLStruct
             return GetUserByCookieAction(sessionKey);
         }
 
-        public UserResp LogInLogic(UDataLogin data)
+        public UserResp LogInLogic(UserDataLoginEntities data)
         {
             return LogInUser(data);
         }
