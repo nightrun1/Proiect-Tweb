@@ -11,54 +11,22 @@ using NextGenPC.Domain.Entities.User;
 
 namespace NextGenPC.BusinessLogic.BLStruct
 {
-    public class AdminBL : IAdmin, IProduct
+    public class AdminBL : AdminAPI, IAdmin
     {
-        private readonly ProductAPI productAPI;
-        private readonly AdminAPI adminAPI;
-
-        public ProductResp AddProductLogic(ProdDataEntities product)
-        {
-            return productAPI.AddProduct(product);
-        }
-
-        public ProductResp DeleteProductLogic(int id)
-        {
-            return productAPI.DeleteProduct(id);
-        }
 
         public bool DeleteUserLogic(int id)
         {
-            return adminAPI.DeleteUser(id);
-        }
-
-        public List<ProdDataEntities> GetAllProductsLogic()
-        {
-            return productAPI.GetProducts();
+            return DeleteUser(id);
         }
 
         public List<UserDataEntities> GetAllUsersLogic()
         {
-            return adminAPI.GetAllUsers();
-        }
-
-        public ProdDataEntities GetProductByIdLogic(int id)
-        {
-            return productAPI.GetProductById(id);
-        }
-
-        public List<ProdDataEntities> SearchProductsLogic(string searchTerm)
-        {
-            return productAPI.SearchProducts(searchTerm);
-        }
-
-        public ProductResp UpdateProductLogic(ProdDataEntities product)
-        {
-            return productAPI.UpdateProduct(product);
+            return GetAllUsers();
         }
 
         public bool UpdateUserLogic(UserDataEntities user)
         {
-            return adminAPI.UpdateUser(user);
+            return UpdateUser(user);
         }
     }
 }

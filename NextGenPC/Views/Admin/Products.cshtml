@@ -1,0 +1,57 @@
+﻿@model IEnumerable<NextGenPC.Models.Products.ProductDataModel>
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-5">
+    <h2 class="text-primary text-center mb-4">Administrare Produse</h2>
+
+    <div class="text-right mb-3">
+        <a href="@Url.Action("Create", "Product")" class="btn btn-success">
+            <i class="fa fa-plus"></i> Adaugă Produs Nou
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Imagine</th>
+                    <th>Nume</th>
+                    <th>Preț</th>
+                    <th>Categorie</th>
+                    <th>Stoc</th>
+                    <th>Acțiuni</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>
+                            <img src="@product.ImageUrl" alt="Imagine Produs" class="img-thumbnail" style="max-width: 80px;" />
+                        </td>
+                        <td>@product.Name</td>
+                        <td>@product.Price.ToString("0.00") RON</td>
+                        <td>@product.Specifications</td>
+                        <td>
+                            <a href="@Url.Action("Edit", "Product", new { id = product.Id })" class="btn btn-sm btn-warning mr-1">
+                                <i class="fa fa-edit"></i> Editare
+                            </a>
+                            <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-sm btn-info mr-1">
+                                <i class="fa fa-eye"></i> Detalii
+                            </a>
+                            <a href="@Url.Action("Delete", "Product", new { id = product.Id })" class="btn btn-sm btn-danger" onclick="return confirm('Ești sigur că vrei să ștergi acest produs?');">
+                                <i class="fa fa-trash"></i> Șterge
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
