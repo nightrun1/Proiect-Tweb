@@ -43,5 +43,32 @@ namespace NextGenPC.BusinessLogic.Core
                 }
             }
         }
+
+        public ProdData GetProductById(int id)
+        {
+            using (var db = new ProductContext())
+            {
+                // Cautam produsul dupa ID
+                var product = db.Products.FirstOrDefault(p => p.Id == id);
+                // Daca produsul exista, il returnam
+                if (product != null)
+                {
+                    return new ProdData
+                    {
+                        Id = product.Id,
+                        Name = product.Name,
+                        ImageUrl = product.ImageUrl,
+                        CPU = product.CPU,
+                        GPU = product.GPU,
+                        RAM = product.RAM,
+                        Storage = product.Storage,
+                        StockQuantity = product.StockQuantity,
+                        Price = product.Price
+                    };
+                }
+                // Daca nu exista, returnam null
+                return null;
+            }
+        }
     }
 }

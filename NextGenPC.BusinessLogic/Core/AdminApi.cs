@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NextGenPC.Domain.Entities.Product;
 
 namespace NextGenPC.BusinessLogic.Core
 {
     public class AdminApi
     {
-        public void AdminApiMethod()
+        public List<ProdData> getProducts()
         {
-            Console.WriteLine("AdminApiMethod");
+            List<ProdData> products = null;
+            return products;
         }
     }
 }
