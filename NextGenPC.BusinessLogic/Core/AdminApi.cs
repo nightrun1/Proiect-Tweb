@@ -39,6 +39,29 @@ namespace NextGenPC.BusinessLogic.Core
             }
         }
 
-        
+        public bool UpdateUser(UserDataEntities user)
+        {
+            using (var db = new UserContext())
+            {
+                // Cautam utilizatorul dupa ID
+                var existingUser = db.Users.FirstOrDefault(u => u.Id == user.Id);
+                if (existingUser != null)
+                {
+                    // Actualizam datele utilizatorului
+                    existingUser.Name = user.Name;
+                    existingUser.Email = user.Email;
+                    existingUser.Level = user.Level;
+                    existingUser.LastLogin = user.LastLogin;
+                    existingUser.UserIp = user.UserIp;
+                    // Salvam modificarile in baza de date
+                    db.SaveChanges();
+
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+
     }
 }
