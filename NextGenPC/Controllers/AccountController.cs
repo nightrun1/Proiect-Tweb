@@ -17,7 +17,7 @@ namespace NextGenPC.Controllers
 
         public AccountController()
         {
-            var bl = new BusinesLogic();
+            var bl = new BusinessLogic.BusinessLogic();
             _session = bl.GetSessionBL();
             _register = bl.GetRegisterBL();
         }

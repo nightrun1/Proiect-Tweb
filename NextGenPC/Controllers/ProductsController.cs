@@ -3,17 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NextGenPC.BusinessLogic.Interfaces;
+using NextGenPC.LogicHelper;
 using NextGenPC.Models.Products;
 
 namespace NextGenPC.Controllers
 {
     public class ProductsController : Controller
     {
+        private readonly IProduct _product;
+
+        public ProductsController()
+        {
+            var bl = new BusinessLogic.BusinessLogic();
+            _product = bl.GetProductBL();
+        }
         // GET: Products
         public ActionResult Index()
         {
-            var Products = new List<ProductData>
-            {
+            var products = _product.GetAllProductsLogic();
+            var viewModel = products.Select(ProductMapper.ToViewModel).ToList();
+
+            // Get products from the database
+
+            /*{
                 new ProductData
                 {
                     Name = "Calculator Gaming Unity X01",
@@ -57,8 +70,8 @@ namespace NextGenPC.Controllers
                     Specifications = "i5-12400F / RTX4060 / 16GB DDR4 / 1TB SSD",
                     Price = 16799m
                 }
-            };
-            return View(Products);
+            };*/
+            return View(viewModel);
         }
 
         public ActionResult Details(int id)

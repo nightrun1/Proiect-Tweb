@@ -3,8 +3,9 @@ using NextGenPC.BusinessLogic.Interfaces;
 
 namespace NextGenPC.BusinessLogic
 {
-    public class BusinesLogic
+    public class BusinessLogic
     {
+        //user
         public ISession GetSessionBL()
         {
             return new SessionBL();
@@ -13,6 +14,12 @@ namespace NextGenPC.BusinessLogic
         public IRegister GetRegisterBL()
         {
             return new RegisterBL();
+        }
+
+        //product
+        public IProduct GetProductBL()
+        {
+            return new ProductBL();
         }
     }
 }

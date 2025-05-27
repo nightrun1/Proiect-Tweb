@@ -1926,16 +1926,16 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LogicHelper\Attributes\isAdminAttribute.cs" />
     <Compile Include="LogicHelper\HttpContextExtensions.cs" />
+    <Compile Include="LogicHelper\ProductMapper.cs" />
     <Compile Include="Models\Authentication\UserDataLogin.cs" />
     <Compile Include="Models\Authentication\UserDataRegister.cs" />
-    <Compile Include="Models\Products\ProductData.cs" />
+    <Compile Include="Models\Products\ProductDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
