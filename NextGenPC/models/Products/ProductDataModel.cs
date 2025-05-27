@@ -5,7 +5,7 @@ using System.Web;
 
 namespace NextGenPC.Models.Products
 {
-    public class ProductData
+    public class ProductDataModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
