@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NextGenPC.Domain.Entities.Product;
+using NextGenPC.Domain.Entities.Product.ProductActionResponse;
 
 namespace NextGenPC.BusinessLogic.Interfaces
 {
@@ -11,5 +12,7 @@ namespace NextGenPC.BusinessLogic.Interfaces
     {
         List<ProdData> GetAllProductsLogic();
         ProdData GetProductByIdLogic(int id);
+        ProductResp AddProductLogic(ProdData product);
+
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using NextGenPC.BusinessLogic.DBModel;
 using NextGenPC.Domain.Entities.Product;
+using NextGenPC.Domain.Entities.Product.ProductActionResponse;
 using NextGenPC.Domain.Entities.User;
 using NextGenPC.Domain.Enums;
 using NextGenPC.Helpers.RegFlow;
@@ -71,13 +72,18 @@ namespace NextGenPC.BusinessLogic.Core
             }
         }
 
-        public bool AddProduct(ProdData product)
+        public ProductResp AddProduct(ProdData product)
         {
             using (var db = new ProductContext())
             {
                 // Verificam daca produsul deja exista
                 if (db.Products.Any(p => p.Name == product.Name))
-                    return false;
+                    return new ProductResp
+                    {
+                        Name = product.Name,
+                        Status = false,
+                        Result = AddProductResult.ProductAlreadyExists
+                    };
 
                 // Cream un nou obiect ProdDbTable
                 var newProduct = new ProdDbTable
@@ -94,7 +100,13 @@ namespace NextGenPC.BusinessLogic.Core
                 // Adaugam produsul in baza de date
                 db.Products.Add(newProduct);
                 db.SaveChanges();
-                return true;
+
+                return new ProductResp
+                    {
+                    Name = product.Name,
+                    Status = true,
+                    Result = AddProductResult.Success
+                };
             }
         }
 

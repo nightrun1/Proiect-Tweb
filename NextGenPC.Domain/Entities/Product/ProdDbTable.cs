@@ -54,10 +54,10 @@ namespace NextGenPC.Domain.Entities.Product
         public decimal Price { get; set; }
 
         [Display(Name = "Created At")]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; }
 
         [Display(Name = "Last Updated")]
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; }
     }
 
 }
