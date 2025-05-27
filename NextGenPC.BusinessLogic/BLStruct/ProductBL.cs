@@ -13,21 +13,21 @@ namespace NextGenPC.BusinessLogic.BLStruct
     public class ProductBL : ProductAPI, IProduct
     {
 
-        public List<ProdData> GetAllProductsLogic()
+        public List<ProdDataEntities> GetAllProductsLogic()
         {
             return GetProducts();
         }
 
-        public ProdData GetProductByIdLogic(int id)
+        public ProdDataEntities GetProductByIdLogic(int id)
         {
             return GetProductById(id);
         }
-        public ProductResp AddProductLogic(ProdData product)
+        public ProductResp AddProductLogic(ProdDataEntities product)
         {
             return AddProduct(product);
         }
 
-        public ProductResp UpdateProductLogic(ProdData product)
+        public ProductResp UpdateProductLogic(ProdDataEntities product)
         {
             return UpdateProduct(product);
         }
@@ -37,7 +37,7 @@ namespace NextGenPC.BusinessLogic.BLStruct
             return DeleteProduct(id);
         }
 
-        public List<ProdData> SearchProductsLogic(string searchTerm)
+        public List<ProdDataEntities> SearchProductsLogic(string searchTerm)
         {
             return SearchProducts(searchTerm);
         }

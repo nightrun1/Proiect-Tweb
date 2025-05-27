@@ -21,5 +21,10 @@ namespace NextGenPC.BusinessLogic
         {
             return new ProductBL();
         }
+
+        public IAdmin GetAdminBL()
+        {
+            return new AdminBL();
+        }
     }
 }

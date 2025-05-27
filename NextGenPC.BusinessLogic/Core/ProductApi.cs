@@ -9,7 +9,7 @@ namespace NextGenPC.BusinessLogic.Core
 {
     public class ProductAPI
     {
-        public List<ProdData> GetProducts()
+        public List<ProdDataEntities> GetProducts()
         {
             using (var db = new ProductContext())
             {
@@ -17,7 +17,7 @@ namespace NextGenPC.BusinessLogic.Core
                 if (db.Products.Any())
                 {
                     // Daca exista, le returnam
-                    return db.Products.Select(p => new ProdData
+                    return db.Products.Select(p => new ProdDataEntities
                     {
                         Id = p.Id,
                         Name = p.Name,
@@ -34,12 +34,12 @@ namespace NextGenPC.BusinessLogic.Core
                 else
                 {
                     // Daca nu exista, returnam o lista goala
-                    return new List<ProdData>();
+                    return new List<ProdDataEntities>();
                 }
             }
         }
 
-        public ProdData GetProductById(int id)
+        public ProdDataEntities GetProductById(int id)
         {
             using (var db = new ProductContext())
             {
@@ -48,7 +48,7 @@ namespace NextGenPC.BusinessLogic.Core
                 // Daca produsul exista, il returnam
                 if (product != null)
                 {
-                    return new ProdData
+                    return new ProdDataEntities
                     {
                         Id = product.Id,
                         Name = product.Name,
@@ -66,7 +66,7 @@ namespace NextGenPC.BusinessLogic.Core
             }
         }
 
-        public ProductResp AddProduct(ProdData product)
+        public ProductResp AddProduct(ProdDataEntities product)
         {
             using (var db = new ProductContext())
             {
@@ -105,7 +105,7 @@ namespace NextGenPC.BusinessLogic.Core
         }
 
 
-        public ProductResp UpdateProduct(ProdData product)
+        public ProductResp UpdateProduct(ProdDataEntities product)
         {
             using (var db = new ProductContext())
             {
@@ -168,7 +168,7 @@ namespace NextGenPC.BusinessLogic.Core
             }
         }
 
-        public List<ProdData> SearchProducts(string searchTerm)
+        public List<ProdDataEntities> SearchProducts(string searchTerm)
         {
             using (var db = new ProductContext())
             {
@@ -179,7 +179,7 @@ namespace NextGenPC.BusinessLogic.Core
                                 p.GPU.Contains(searchTerm) ||
                                 p.RAM.Contains(searchTerm) ||
                                 p.Storage.Contains(searchTerm))
-                    .Select(p => new ProdData
+                    .Select(p => new ProdDataEntities
                     {
                         Id = p.Id,
                         Name = p.Name,

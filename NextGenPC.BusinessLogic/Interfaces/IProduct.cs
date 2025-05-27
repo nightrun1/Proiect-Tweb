@@ -10,11 +10,11 @@ namespace NextGenPC.BusinessLogic.Interfaces
 {
     public interface IProduct
     {
-        List<ProdData> GetAllProductsLogic();
-        ProdData GetProductByIdLogic(int id);
-        ProductResp AddProductLogic(ProdData product);
-        ProductResp UpdateProductLogic(ProdData product);
+        List<ProdDataEntities> GetAllProductsLogic();
+        ProdDataEntities GetProductByIdLogic(int id);
+        ProductResp AddProductLogic(ProdDataEntities product);
+        ProductResp UpdateProductLogic(ProdDataEntities product);
         ProductResp DeleteProductLogic(int id);
-        List<ProdData> SearchProductsLogic(string searchTerm);
+        List<ProdDataEntities> SearchProductsLogic(string searchTerm);
     }
 }
