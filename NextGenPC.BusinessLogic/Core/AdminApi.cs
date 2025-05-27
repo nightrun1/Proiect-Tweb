@@ -63,5 +63,23 @@ namespace NextGenPC.BusinessLogic.Core
             }
         }
 
+        public bool DeleteUser(int userId)
+        {
+            using (var db = new UserContext())
+            {
+                // Cautam utilizatorul dupa ID
+                var user = db.Users.FirstOrDefault(u => u.Id == userId);
+                if (user != null)
+                {
+                    // Stergem utilizatorul
+                    db.Users.Remove(user);
+                    // Salvam modificarile in baza de date
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
     }
 }
