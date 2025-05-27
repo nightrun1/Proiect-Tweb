@@ -18,6 +18,7 @@ namespace NextGenPC.LogicHelper
             Price = product.Price
         };
 
+        //not used yet, but can be used in the future if needed
         /*public static ProdData ToEntity(ProductData vm) => new ProdData
         {
             Id = vm.Id,

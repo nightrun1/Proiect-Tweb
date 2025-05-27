@@ -15,5 +15,10 @@ namespace NextGenPC.BusinessLogic.BLStruct
         {
             return GetProducts();
         }
+
+        public ProdData GetProductByIdLogic(int id)
+        {
+            return GetProductById(id);
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace NextGenPC.BusinessLogic.Interfaces
     public interface IProduct
     {
         List<ProdData> GetAllProductsLogic();
+        ProdData GetProductByIdLogic(int id);
     }
 }
