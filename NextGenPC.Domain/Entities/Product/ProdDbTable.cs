@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace NextGenPC.Domain.Entities.Product
 {
 
-    public class ProductDbTable
+    public class ProdDbTable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
