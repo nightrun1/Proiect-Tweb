@@ -82,7 +82,7 @@ namespace NextGenPC.BusinessLogic.Core
                     {
                         Name = product.Name,
                         Status = false,
-                        Result = AddProductResult.ProductAlreadyExists
+                        Result = ProductResult.ProductAlreadyExists
                     };
 
                 // Cream un nou obiect ProdDbTable
@@ -105,13 +105,13 @@ namespace NextGenPC.BusinessLogic.Core
                     {
                     Name = product.Name,
                     Status = true,
-                    Result = AddProductResult.Success
+                    Result = ProductResult.Success
                 };
             }
         }
 
 
-        public bool UpdateProduct(ProdData product)
+        public ProductResp UpdateProduct(ProdData product)
         {
             using (var db = new ProductContext())
             {
@@ -129,11 +129,51 @@ namespace NextGenPC.BusinessLogic.Core
                     existingProduct.StockQuantity = product.StockQuantity;
                     existingProduct.Price = product.Price;
                     db.SaveChanges();
-                    return true;
+                    return new ProductResp
+                    {
+                        Name = product.Name,
+                        Status = true,
+                        Result = ProductResult.Success
+                    };
                 }
                 // Daca nu exista, returnam false
-                return false;
+                return new ProductResp
+                {
+                    Name = product.Name,
+                    Status = false,
+                    Result = ProductResult.ProductNotFound
+                };
             }
         }
+
+        public ProductResp DeleteProduct(int id)
+        {
+            using (var db = new ProductContext())
+            {
+                // Cautam produsul dupa ID
+                var product = db.Products.FirstOrDefault(p => p.Id == id);
+                // Daca produsul exista, il stergem
+                if (product != null)
+                {
+                    db.Products.Remove(product);
+                    db.SaveChanges();
+                    return new ProductResp
+                    {
+                        Name = product.Name,
+                        Status = true,
+                        Result = ProductResult.Success
+                    };
+                }
+                // Daca nu exista, returnam false
+                return new ProductResp
+                {
+                    Name = null,
+                    Status = false,
+                    Result = ProductResult.ProductNotFound
+                };
+            }
+        }
+
+       
     }
 }
