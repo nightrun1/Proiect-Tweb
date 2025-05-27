@@ -70,5 +70,58 @@ namespace NextGenPC.BusinessLogic.Core
                 return null;
             }
         }
+
+        public bool AddProduct(ProdData product)
+        {
+            using (var db = new ProductContext())
+            {
+                // Verificam daca produsul deja exista
+                if (db.Products.Any(p => p.Name == product.Name))
+                    return false;
+
+                // Cream un nou obiect ProdDbTable
+                var newProduct = new ProdDbTable
+                {
+                    Name = product.Name,
+                    ImageUrl = product.ImageUrl,
+                    CPU = product.CPU,
+                    GPU = product.GPU,
+                    RAM = product.RAM,
+                    Storage = product.Storage,
+                    StockQuantity = product.StockQuantity,
+                    Price = product.Price
+                };
+                // Adaugam produsul in baza de date
+                db.Products.Add(newProduct);
+                db.SaveChanges();
+                return true;
+            }
+        }
+
+
+        public bool UpdateProduct(ProdData product)
+        {
+            using (var db = new ProductContext())
+            {
+                // Cautam produsul dupa ID
+                var existingProduct = db.Products.FirstOrDefault(p => p.Id == product.Id);
+                // Daca produsul exista, il actualizam
+                if (existingProduct != null)
+                {
+                    existingProduct.Name = product.Name;
+                    existingProduct.ImageUrl = product.ImageUrl;
+                    existingProduct.CPU = product.CPU;
+                    existingProduct.GPU = product.GPU;
+                    existingProduct.RAM = product.RAM;
+                    existingProduct.Storage = product.Storage;
+                    existingProduct.StockQuantity = product.StockQuantity;
+                    existingProduct.Price = product.Price;
+                    db.SaveChanges();
+                    return true;
+                }
+                // Daca nu exista, returnam false
+                return false;
+            }
+        }
     }
 }
