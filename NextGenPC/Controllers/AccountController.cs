@@ -171,7 +171,7 @@ namespace NextGenPC.Controllers
                     if (result)
                     {
                         TempData["SuccessMessage"] = "Datele au fost actualizate.";
-                        return RedirectToAction("Logout");
+                        return RedirectToAction("MyProfile");
                     }
 
                     TempData["ErrorMessage"] = "A apărut o eroare la actualizare.";
@@ -182,6 +182,21 @@ namespace NextGenPC.Controllers
                 }
             }
 
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult MyProfile()
+        {
+            SessionStatus();
+            var currentUserId = (int)Session["UserId"];
+            var user = _admin.GetUserByIdLogic(currentUserId);
+            
+            var model = new UserUpdateModel
+            {
+                Name = user.Name,
+                Email = user.Email
+            };
             return View(model);
         }
         public ActionResult Logout()
