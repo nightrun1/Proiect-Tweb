@@ -36,6 +36,16 @@ namespace NextGenPC.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+
+            ViewBag.ProductCount = _product.GetAllProductsLogic().Count();
+            ViewBag.UserCount = _admin.GetAllUsersLogic().Count();
+            ViewBag.LowStock = _product.GetAllProductsLogic().Count(p => p.StockQuantity <= 5);
+            ViewBag.LatestProducts = _product.GetAllProductsLogic()
+                                             .OrderByDescending(p => p.Id)
+                                             .Take(3)
+                                             .Select(ProductMapper.ToViewModel)
+                                             .ToList();
+
             ViewBag.HideFooter = true;
             return View();
         }
