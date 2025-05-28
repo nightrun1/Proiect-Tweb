@@ -220,5 +220,23 @@ namespace NextGenPC.Controllers
 
             return View(productModel);
         }
+
+        public ActionResult DeleteUser(int id)
+        {
+            //TODO: Implementarea unui UserRespone
+            bool result = _admin.DeleteUserLogic(id);
+
+            if (result)
+            {
+                TempData["SuccessMessage"] = "Utilizatorul a fost șters cu succes.";
+            }
+
+            else
+            {
+                TempData["ErrorMessage"] = "Eroare la ștergerea utilizatorului.";
+            }
+
+            return RedirectToAction("Users");
+        }
     }
 }
