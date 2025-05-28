@@ -1932,11 +1932,13 @@
     </Compile>
     <Compile Include="LogicHelper\Attributes\isAdminAttribute.cs" />
     <Compile Include="LogicHelper\HttpContextExtensions.cs" />
-    <Compile Include="LogicHelper\ProductMapper.cs" />
+    <Compile Include="LogicHelper\Mappers\ProductMapper.cs" />
+    <Compile Include="LogicHelper\Mappers\UserMapper.cs" />
     <Compile Include="Models\Authentication\UserDataLogin.cs" />
     <Compile Include="Models\Authentication\UserDataRegister.cs" />
     <Compile Include="Models\Products\ProductDataCreateModel.cs" />
     <Compile Include="Models\Products\ProductDataModel.cs" />
+    <Compile Include="Models\Users\UserDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

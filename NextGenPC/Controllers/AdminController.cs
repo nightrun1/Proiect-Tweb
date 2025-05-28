@@ -9,6 +9,7 @@ using NextGenPC.Domain.Entities.Product;
 using NextGenPC.Domain.Entities.User;
 using NextGenPC.LogicHelper;
 using NextGenPC.LogicHelper.Atributes;
+using NextGenPC.LogicHelper.Mappers;
 using NextGenPC.Models.Products;
 
 namespace NextGenPC.Controllers
@@ -49,8 +50,10 @@ namespace NextGenPC.Controllers
             }
 
             var users = _admin.GetAllUsersLogic();
+            var viewModel = users.Select(UserMapper.ToViewModel).ToList();
             ViewBag.HideFooter = true;
-            return View(users);
+
+            return View(viewModel);
         }
 
         [isAdmin]
@@ -67,6 +70,7 @@ namespace NextGenPC.Controllers
             return View();
         }
 
+        //Products ActionResult
         [isAdmin]
         public ActionResult Products()
         {
