@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NextGenPC.BusinessLogic.BLStruct;
 using NextGenPC.BusinessLogic.Interfaces;
 using NextGenPC.Domain.Entities.Product;
 using NextGenPC.Domain.Entities.User;
@@ -123,10 +124,76 @@ namespace NextGenPC.Controllers
 
                 try
                 {
-                    // call BL
                     var product = _product.AddProductLogic(data);
 
-                    //if succes, else...
+                    if (product.Status)
+                    {
+                        TempData["SuccessMessage"] = "Produsul a fost creat cu succes.";
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Produsul nu este adaugat. Eroarea: " + product.Result;
+                    }
+                }
+                catch
+                (Exception ex)
+                {
+                    // Handle exception (e.g., log it)
+                    TempData["ErrorMessage"] = "Produsul nu este adaugat. Eroare";
+                    return View(productModel);
+                }
+                return RedirectToAction("Products");
+
+            }
+
+            return View(productModel);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var product = _product.GetProductByIdLogic(id);
+            if (product == null) return HttpNotFound();
+
+            var model = new ProductDataCreateModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                ImageUrl = product.ImageUrl,
+                CPU = product.CPU,
+                GPU = product.GPU,
+                RAM = product.RAM,
+                Storage = product.Storage,
+                StockQuantity = product.StockQuantity,
+                Price = product.Price
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, ProductDataCreateModel productModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = new ProductDataEntities
+                {
+                    Id = productModel.Id,
+                    Name = productModel.Name,
+                    ImageUrl = productModel.ImageUrl,
+                    CPU = productModel.CPU,
+                    GPU = productModel.GPU,
+                    RAM = productModel.RAM,
+                    Storage = productModel.Storage,
+                    StockQuantity = productModel.StockQuantity,
+                    Price = productModel.Price
+                };
+
+                try
+                {
+                    var product = _product.UpdateProductLogic(data);
+
                     if (product.Status)
                     {
                         TempData["SuccessMessage"] = "Produsul a fost creat cu succes.";
