@@ -1,144 +1,75 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    ViewBag.Title = "Acasă";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NextGen PC</title>
-</head>
+<!-- HERO -->
+<div class="hero-section text-white d-flex align-items-center" style="
+    background-image: url('https://images.unsplash.com/photo-1624705002806-5d72df19c3ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    position: relative;
+">
+    <div style="background-color: rgba(0,0,0,0.5); position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
+    <div class="container text-center position-relative" style="z-index: 2;">
+        <h1 class="display-4 fw-bold">
+            <span style="color: #C4C4C4;">Bine ai venit la</span>
+            <span class="text-primary">NextGenPC</span>
+        </h1>
+        <p class="lead">Descoperă cele mai noi componente și construiește-ți PC-ul de vis.</p>
+        <a href="@Url.Action("Index", "Products")" class="btn btn-lg btn-primary mt-3">
+            <i class="fas fa-shopping-cart"></i> Vezi Catalogul
+        </a>
+    </div>
+</div>
 
-<body>
-    <!-- Hero Image -->
-    <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-1624705002806-5d72df19c3ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Hero Image">
-        <div class="hero-text">
-            <div class="container mt-4">
-                <h1>Welcome to NextGen PC</h1>
-                <p>Take your feelings to a <span class="cyan-text">next</span> level.</p>
-            </div>
+<!-- CATEGORII / FEATURES -->
+<div class="container my-5">
+    <div class="row text-center">
+        <div class="col-md-4">
+            <i class="fas fa-microchip fa-3x text-primary mb-3"></i>
+            <h5>Componente de top</h5>
+            <p>Procesoare, plăci video, RAM și altele de la branduri renumite.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="fas fa-tools fa-3x text-primary mb-3"></i>
+            <h5>Configurator PC</h5>
+            <p>Construiește-ți propriul sistem și verifică compatibilitatea pieselor.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="fas fa-shipping-fast fa-3x text-primary mb-3"></i>
+            <h5>Livrare rapidă</h5>
+            <p>Trimitem comanda ta în cel mai scurt timp, oriunde în țară.</p>
         </div>
     </div>
+</div>
 
-    <!-- Filters and Product Grid -->
-    <div class="container mt-4">
-        <div class="row">
-            <!-- Filters -->
-            <div class="col-lg-3 bg-white p-4 rounded-lg shadow-sm">
-                <h2 class="text-lg font-semibold mb-4">Filters</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Price Range ($)</label>
-                        <input type="range" class="form-control-range" min="0" max="5000">
-                        <div class="d-flex justify-content-between text-sm text-gray-600 mt-1">
-                            <span>$0</span>
-                            <span>$5000</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Power Consumption (W)</label>
-                        <input type="range" class="form-control-range" min="0" max="1200">
-                        <div class="d-flex justify-content-between text-sm text-gray-600 mt-1">
-                            <span>0W</span>
-                            <span>1200W</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">RAM</label>
-                        <select class="form-control">
-                            <option value="all">All</option>
-                            <option value="32">32GB</option>
-                            <option value="64">64GB</option>
-                            <option value="128">128GB</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Storage</label>
-                        <select class="form-control">
-                            <option value="all">All</option>
-                            <option value="2000">2TB</option>
-                            <option value="4000">4TB</option>
-                            <option value="8000">8TB</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Processor</label>
-                        <select class="form-control">
-                            <option value="all">All</option>
-                            <option value="Intel i9-13900K">Intel i9-13900K</option>
-                            <option value="AMD Ryzen 9 7950X">AMD Ryzen 9 7950X</option>
-                            <option value="Intel i9-13900KS">Intel i9-13900KS</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Graphics Card</label>
-                        <select class="form-control">
-                            <option value="all">All</option>
-                            <option value="RTX 4070">RTX 4070</option>
-                            <option value="RTX 4080">RTX 4080</option>
-                            <option value="RTX 4090">RTX 4090</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product Grid -->
-            <div class="col-lg-9">
-                <div class="row">
-                    <!-- Product 1 -->
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Gaming Beast Pro">
-                            <div class="card-body">
-                                <h5 class="card-title">Gaming Beast Pro</h5>
-                                <p class="card-text">$2499</p>
-                                <p class="card-text">Power: 850W</p>
-                                <p class="card-text">RAM: 32GB</p>
-                                <p class="card-text">Storage: 2TB</p>
-                                <p class="card-text">CPU: Intel i9-13900K</p>
-                                <p class="card-text">GPU: RTX 4080</p>
-                                <a href="#" class="btn btn-view-details w-100">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product 2 -->
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Workstation Elite">
-                            <div class="card-body">
-                                <h5 class="card-title">Workstation Elite</h5>
-                                <p class="card-text">$1899</p>
-                                <p class="card-text">Power: 750W</p>
-                                <p class="card-text">RAM: 64GB</p>
-                                <p class="card-text">Storage: 4TB</p>
-                                <p class="card-text">CPU: AMD Ryzen 9 7950X</p>
-                                <p class="card-text">GPU: RTX 4070</p>
-                                <a href="#" class="btn btn-view-details w-100">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product 3 -->
-                    <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card h-100 product-card">
-                            <img src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Creator's Dream">
-                            <div class="card-body">
-                                <h5 class="card-title">Creator's Dream</h5>
-                                <p class="card-text">$3299</p>
-                                <p class="card-text">Power: 1000W</p>
-                                <p class="card-text">RAM: 128GB</p>
-                                <p class="card-text">Storage: 8TB</p>
-                                <p class="card-text">CPU: Intel i9-13900KS</p>
-                                <p class="card-text">GPU: RTX 4090</p>
-                                <a href="#" class="btn btn-view-details w-100">View Details</a>
-                            </div>
+<!-- PRODUSE RECENTE -->
+<div class="container mt-5">
+    <h3 class="text-dark mb-4"><i class="fas fa-star text-warning"></i> Produse noi</h3>
+    @if (ViewBag.NewProducts != null && ((List<NextGenPC.Models.Products.ProductDataModel>)ViewBag.NewProducts).Any())
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var product in (List<NextGenPC.Models.Products.ProductDataModel>)ViewBag.NewProducts)
+            {
+                <div class="col">
+                    <div class="card h-100 border-0 shadow rounded-4">
+                        <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;" />
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text text-muted">Specificatii: @product.Specifications</p>
+                            <p class="fw-bold text-primary">@product.Price.ToString("0.00") lei</p>
+                            <a href="@Url.Action("Details", "Products", new { id = product.Id })" class="btn btn-outline-primary btn-sm">Detalii</a>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
-    </div>
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="@Html.Raw("https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js")"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    }
+    else
+    {
+        <p class="text-muted">Nu există produse adăugate recent.</p>
+    }
+</div>
