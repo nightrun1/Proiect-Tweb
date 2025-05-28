@@ -4,8 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NextGenPC.BusinessLogic.Interfaces;
+using NextGenPC.Domain.Entities.Product;
+using NextGenPC.Domain.Entities.User;
 using NextGenPC.LogicHelper;
 using NextGenPC.LogicHelper.Atributes;
+using NextGenPC.Models.Products;
 
 namespace NextGenPC.Controllers
 {
@@ -76,6 +79,75 @@ namespace NextGenPC.Controllers
             var viewModel = products.Select(ProductMapper.ToViewModel).ToList();
             ViewBag.HideFooter = true;
             return View(viewModel);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var result = _product.DeleteProductLogic(id);
+            if (result.Status)
+            {
+                TempData["SuccessMessage"] = "Produsul a fost șters cu succes.";
+            }
+
+            else
+            {
+                TempData["ErrorMessage"] = "Eroare la ștergerea produsului.";
+            }
+
+            return RedirectToAction("Products");
+        }
+
+        [HttpGet]
+        public ActionResult CreateProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateProduct(ProductDataCreateModel productModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = new ProductDataEntities
+                {
+                    Name = productModel.Name,
+                    ImageUrl = productModel.ImageUrl,
+                    CPU = productModel.CPU,
+                    GPU = productModel.GPU,
+                    RAM = productModel.RAM,
+                    Storage = productModel.Storage,
+                    StockQuantity = productModel.StockQuantity,
+                    Price = productModel.Price
+                };
+
+                try
+                {
+                    // call BL
+                    var product = _product.AddProductLogic(data);
+
+                    //if succes, else...
+                    if (product.Status)
+                    {
+                        TempData["SuccessMessage"] = "Produsul a fost creat cu succes.";
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Produsul nu este adaugat. Eroarea: " + product.Result;
+                    }
+                }
+                catch
+                (Exception ex)
+                {
+                    // Handle exception (e.g., log it)
+                    TempData["ErrorMessage"] = "Produsul nu este adaugat. Eroare";
+                    return View(productModel);
+                }
+                return RedirectToAction("Products");
+
+            }
+
+            return View(productModel);
         }
     }
 }

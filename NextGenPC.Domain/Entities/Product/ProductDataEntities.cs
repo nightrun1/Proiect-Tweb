@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NextGenPC.Domain.Entities.Product
 {
-    public class ProdDataEntities
+    public class ProductDataEntities
     {
         public int Id { get; set; }
         public string Name { get; set; }

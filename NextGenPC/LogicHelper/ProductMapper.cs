@@ -9,7 +9,7 @@ namespace NextGenPC.LogicHelper
 {
     public static class ProductMapper
     {
-        public static ProductDataModel ToViewModel(ProdDataEntities product) => new ProductDataModel
+        public static ProductDataModel ToViewModel(ProductDataEntities product) => new ProductDataModel
         {
             Id = product.Id,
             Name = product.Name,

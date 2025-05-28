@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Product\ProdDataEntities.cs" />
+    <Compile Include="Entities\Product\ProductDataEntities.cs" />
     <Compile Include="Entities\Product\ProdDbTable.cs" />
     <Compile Include="Entities\Product\ProductActionResponse\ProductResp.cs" />
     <Compile Include="Entities\Session\SessionDbTable.cs" />

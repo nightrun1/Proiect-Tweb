@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NextGenPC.BusinessLogic.DBModel;
 using NextGenPC.Domain.Entities.Product;
@@ -9,7 +10,7 @@ namespace NextGenPC.BusinessLogic.Core
 {
     public class ProductAPI
     {
-        public List<ProdDataEntities> GetProducts()
+        public List<ProductDataEntities> GetProducts()
         {
             using (var db = new ProductContext())
             {
@@ -17,7 +18,7 @@ namespace NextGenPC.BusinessLogic.Core
                 if (db.Products.Any())
                 {
                     // Daca exista, le returnam
-                    return db.Products.Select(p => new ProdDataEntities
+                    return db.Products.Select(p => new ProductDataEntities
                     {
                         Id = p.Id,
                         Name = p.Name,
@@ -34,12 +35,12 @@ namespace NextGenPC.BusinessLogic.Core
                 else
                 {
                     // Daca nu exista, returnam o lista goala
-                    return new List<ProdDataEntities>();
+                    return new List<ProductDataEntities>();
                 }
             }
         }
 
-        public ProdDataEntities GetProductById(int id)
+        public ProductDataEntities GetProductById(int id)
         {
             using (var db = new ProductContext())
             {
@@ -48,7 +49,7 @@ namespace NextGenPC.BusinessLogic.Core
                 // Daca produsul exista, il returnam
                 if (product != null)
                 {
-                    return new ProdDataEntities
+                    return new ProductDataEntities
                     {
                         Id = product.Id,
                         Name = product.Name,
@@ -66,7 +67,7 @@ namespace NextGenPC.BusinessLogic.Core
             }
         }
 
-        public ProductResp AddProduct(ProdDataEntities product)
+        public ProductResp AddProduct(ProductDataEntities product)
         {
             using (var db = new ProductContext())
             {
@@ -89,7 +90,10 @@ namespace NextGenPC.BusinessLogic.Core
                     RAM = product.RAM,
                     Storage = product.Storage,
                     StockQuantity = product.StockQuantity,
-                    Price = product.Price
+                    Price = product.Price,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
+
                 };
                 // Adaugam produsul in baza de date
                 db.Products.Add(newProduct);
@@ -105,7 +109,7 @@ namespace NextGenPC.BusinessLogic.Core
         }
 
 
-        public ProductResp UpdateProduct(ProdDataEntities product)
+        public ProductResp UpdateProduct(ProductDataEntities product)
         {
             using (var db = new ProductContext())
             {
@@ -122,6 +126,7 @@ namespace NextGenPC.BusinessLogic.Core
                     existingProduct.Storage = product.Storage;
                     existingProduct.StockQuantity = product.StockQuantity;
                     existingProduct.Price = product.Price;
+                    existingProduct.UpdatedAt = DateTime.Now;
                     db.SaveChanges();
                     return new ProductResp
                     {
@@ -168,7 +173,7 @@ namespace NextGenPC.BusinessLogic.Core
             }
         }
 
-        public List<ProdDataEntities> SearchProducts(string searchTerm)
+        public List<ProductDataEntities> SearchProducts(string searchTerm)
         {
             using (var db = new ProductContext())
             {
@@ -179,7 +184,7 @@ namespace NextGenPC.BusinessLogic.Core
                                 p.GPU.Contains(searchTerm) ||
                                 p.RAM.Contains(searchTerm) ||
                                 p.Storage.Contains(searchTerm))
-                    .Select(p => new ProdDataEntities
+                    .Select(p => new ProductDataEntities
                     {
                         Id = p.Id,
                         Name = p.Name,

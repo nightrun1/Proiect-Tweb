@@ -1935,6 +1935,7 @@
     <Compile Include="LogicHelper\ProductMapper.cs" />
     <Compile Include="Models\Authentication\UserDataLogin.cs" />
     <Compile Include="Models\Authentication\UserDataRegister.cs" />
+    <Compile Include="Models\Products\ProductDataCreateModel.cs" />
     <Compile Include="Models\Products\ProductDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -2053,6 +2054,7 @@
     <Content Include="Views\Admin\Users.cshtml" />
     <Content Include="Views\Admin\Orders.cshtml" />
     <Content Include="Views\Admin\Products.cshtml" />
+    <Content Include="Views\Admin\CreateProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
