@@ -8,6 +8,7 @@ using NextGenPC.Domain.Entities.Product;
 using NextGenPC.Domain.Entities.User;
 using NextGenPC.Domain.Entities.User.UserActionResponse;
 using NextGenPC.Domain.Enums;
+using NextGenPC.Helpers.RegFlow;
 
 namespace NextGenPC.BusinessLogic.Core
 {
@@ -38,6 +39,32 @@ namespace NextGenPC.BusinessLogic.Core
                 }
             }
         }
+        public UserDataEntities GetUserById(int userId)
+        {
+            using (var db = new UserContext())
+            {
+                // Cautam utilizatorul dupa ID
+                var user = db.Users.FirstOrDefault(u => u.Id == userId);
+                if (user != null)
+                {
+                    // Daca utilizatorul exista, il returnam
+                    return new UserDataEntities
+                    {
+                        Id = user.Id,
+                        Name = user.Name,
+                        Email = user.Email,
+                        Level = user.Level,
+                        LastLogin = user.LastLogin,
+                        UserIp = user.UserIp
+                    };
+                }
+                else
+                {
+                    // Daca nu exista, returnam null
+                    return null;
+                }
+            }
+        }
 
         public bool UpdateUser(UserDataEntities user)
         {
@@ -50,9 +77,8 @@ namespace NextGenPC.BusinessLogic.Core
                     // Actualizam datele utilizatorului
                     existingUser.Name = user.Name;
                     existingUser.Email = user.Email;
-                    existingUser.Level = user.Level;
-                    existingUser.LastLogin = user.LastLogin;
-                    existingUser.UserIp = user.UserIp;
+                    existingUser.Password = LogRegHelper.HashPassword(user.Password);
+                    existingUser.LastLogin = DateTime.Now;
                     // Salvam modificarile in baza de date
                     db.SaveChanges();
 

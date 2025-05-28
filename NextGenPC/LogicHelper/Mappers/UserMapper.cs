@@ -21,5 +21,13 @@ namespace NextGenPC.LogicHelper.Mappers
             UserIp = user.UserIp,
             Level = user.Level
         };
+
+        public static UserDataEntities ToEntity(UserUpdateModel user) => new UserDataEntities
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email,
+            Password = user.NewPassword,
+        };
     }
 }

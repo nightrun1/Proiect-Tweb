@@ -24,6 +24,11 @@ namespace NextGenPC.BusinessLogic.BLStruct
             return GetAllUsers();
         }
 
+        public UserDataEntities GetUserByIdLogic(int id)
+        {
+            return GetUserById(id);
+        }
+
         public bool UpdateUserLogic(UserDataEntities user)
         {
             return UpdateUser(user);

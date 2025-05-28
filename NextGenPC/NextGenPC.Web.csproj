@@ -1939,6 +1939,7 @@
     <Compile Include="Models\Products\ProductDataCreateModel.cs" />
     <Compile Include="Models\Products\ProductDataModel.cs" />
     <Compile Include="Models\Users\UserDataModel.cs" />
+    <Compile Include="Models\Users\UserUpdateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2058,6 +2059,7 @@
     <Content Include="Views\Admin\Products.cshtml" />
     <Content Include="Views\Admin\CreateProduct.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

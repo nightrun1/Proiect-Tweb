@@ -10,6 +10,7 @@ namespace NextGenPC.BusinessLogic.Interfaces
     public interface IAdmin
     {
         List<UserDataEntities> GetAllUsersLogic();
+        UserDataEntities GetUserByIdLogic(int id);
         bool UpdateUserLogic(UserDataEntities user);
         bool DeleteUserLogic(int id);
     }

@@ -6,20 +6,24 @@ using NextGenPC.BusinessLogic.Interfaces;
 using NextGenPC.Domain.Entities.User;
 using NextGenPC.Domain.Entities.User.UserActionResponse;
 using NextGenPC.Domain.Enums;
+using NextGenPC.LogicHelper.Mappers;
 using NextGenPC.Models.Authentication;
+using NextGenPC.Models.Users;
 
 namespace NextGenPC.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly ISession _session;
         private readonly IRegister _register;
+        private readonly IAdmin _admin;
 
         public AccountController()
         {
             var bl = new BusinessLogic.BusinessLogic();
             _session = bl.GetSessionBL();
             _register = bl.GetRegisterBL();
+            _admin = bl.GetAdminBL();
         }
 
         // GET: Account/Register
@@ -72,11 +76,11 @@ namespace NextGenPC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Models.Authentication.UserDataLogin loginModel)
+        public ActionResult Login(UserDataLogin loginModel)
         {
             if (ModelState.IsValid)
             {
-                var data = new Domain.Entities.User.UserDataLoginEntities
+                var data = new UserDataLoginEntities
                 {
                     NameOrEmail = loginModel.NameOrEmail,
                     Password = loginModel.Password,
@@ -134,6 +138,52 @@ namespace NextGenPC.Controllers
             return View(loginModel);
         }
 
+        [HttpGet]
+        public ActionResult EditProfile()
+        {
+            SessionStatus();
+            var currentUserId = (int)Session["UserId"];
+            var user = _admin.GetUserByIdLogic(currentUserId);
+
+            var model = new UserUpdateModel
+            {
+                Name = user.Name,
+                Email = user.Email
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(UserUpdateModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    //posibil se poate de scos id altfel
+                    var currentUserId = (int)Session["UserId"];
+                    model.Id = currentUserId; // Set the current user's ID
+                    var toEntity = UserMapper.ToEntity(model);
+                    var result = _admin.UpdateUserLogic(toEntity);
+
+                    if (result)
+                    {
+                        TempData["SuccessMessage"] = "Datele au fost actualizate.";
+                        return RedirectToAction("Logout");
+                    }
+
+                    TempData["ErrorMessage"] = "A apărut o eroare la actualizare.";
+                }
+                catch (Exception)
+                {
+                    TempData["ErrorMessage"] = "Eroare la procesarea cererii.";
+                }
+            }
+
+            return View(model);
+        }
         public ActionResult Logout()
         {
             // Sterge cookie-ul de autentificare
