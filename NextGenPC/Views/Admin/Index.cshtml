@@ -1,121 +1,103 @@
 ﻿@{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var latestProducts = ViewBag.LatestProducts as List<NextGenPC.Models.Products.ProductDataModel>;
 }
 
 <style>
     body {
-        background: #f4f7fa;
-        background-image: radial-gradient(circle at top left, rgba(100,149,237,0.1), transparent 60%), radial-gradient(circle at bottom right, rgba(255,165,0,0.1), transparent 60%);
+        background: #f1f4f9;
+        background-image: radial-gradient(circle at top left, rgba(100, 149, 237, 0.15), transparent 60%), radial-gradient(circle at bottom right, rgba(255, 165, 0, 0.15), transparent 60%);
     }
 
-    .admin-dashboard h2 {
-        font-weight: 600;
-        margin-bottom: 2rem;
-    }
-
-    .dashboard-card {
-        background: #ffffff;
-        border: 1px solid #e0e0e0;
-        border-radius: 12px;
-        padding: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    .transition-all {
         transition: all 0.3s ease;
     }
 
-        .dashboard-card:hover {
-            box-shadow: 0 0 15px rgba(33, 150, 243, 0.2);
-            transform: translateY(-4px);
-        }
-
-        .dashboard-card h5 {
-            font-weight: 600;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .dashboard-card p {
-            font-size: 0.95rem;
-            color: #555;
-        }
-
-        .dashboard-card a.btn {
-            margin-top: 1rem;
-            background-color: #2196f3;
-            color: #fff;
-            font-size: 0.85rem;
-            padding: 0.4rem 1.2rem;
-            border-radius: 8px;
-        }
-
-            .dashboard-card a.btn:hover {
-                background-color: #1976d2;
-            }
+    .card-hover:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1) !important;
+    }
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
-
 <div class="container admin-dashboard mt-5">
     <div class="mb-4">
-        <h2 class="text-dark"><i class="fas fa-tachometer-alt text-primary"></i> Dashboard administrare</h2>
-        <p class="text-muted">Bun venit, @Session["UserName"]!</p>
+        <h2 class="text-dark">
+            <i class="fas fa-tachometer-alt text-primary"></i> Dashboard administrare
+        </h2>
+        <p class="text-muted">Bun venit, @(Session["UserName"] ?? "Admin")!</p>
     </div>
 
-    <div class="row g-4">
+    <!-- Butoane administrare + statistici ca al 4-lea card -->
+    <div class="row g-4 mb-5">
         <div class="col-md-3">
-            <div class="card border-left-primary shadow h-100 py-2 rounded-4">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Produse</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.ProductCount</div>
-                        </div>
-                        <i class="fas fa-box fa-2x text-primary"></i>
+            <div class="card h-100 border-0 shadow-sm rounded-4 p-4 d-flex flex-column justify-content-between transition-all card-hover">
+                <div>
+                    <h5 class="fw-semibold text-dark mb-3">Utilizatori</h5>
+                    <p class="text-muted">Gestionează utilizatorii existenți din sistem.</p>
+                </div>
+                <a href="@Url.Action("Users", "Admin")" class="btn btn-primary w-100 rounded mt-3">Deschide</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100 border-0 shadow-sm rounded-4 p-4 d-flex flex-column justify-content-between transition-all card-hover">
+                <div>
+                    <h5 class="fw-semibold text-dark mb-3">Comenzi</h5>
+                    <p class="text-muted">Monitorizează comenzile plasate de clienți.</p>
+                </div>
+                <a href="@Url.Action("Orders", "Admin")" class="btn btn-primary w-100 rounded mt-3">Deschide</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100 border-0 shadow-sm rounded-4 p-4 d-flex flex-column justify-content-between transition-all card-hover">
+                <div>
+                    <h5 class="fw-semibold text-dark mb-3">Produse</h5>
+                    <p class="text-muted">Adaugă, editează sau șterge produse.</p>
+                </div>
+                <a href="@Url.Action("Products", "Admin")" class="btn btn-primary w-100 rounded mt-3">Deschide</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100 border-0 shadow-sm rounded-4 p-4 transition-all card-hover">
+                <h5 class="fw-semibold text-dark mb-3">Statistici</h5>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <div class="small text-primary fw-bold">Produse</div>
+                        <div class="fw-semibold">@ViewBag.ProductCount</div>
                     </div>
+                    <i class="fas fa-box text-primary"></i>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <div class="small text-danger fw-bold">Stoc redus</div>
+                        <div class="fw-semibold">@ViewBag.LowStock</div>
+                    </div>
+                    <i class="fas fa-exclamation-triangle text-danger"></i>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="small text-success fw-bold">Utilizatori</div>
+                        <div class="fw-semibold">@ViewBag.UserCount</div>
+                    </div>
+                    <i class="fas fa-users text-success"></i>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-md-3">
-            <div class="card border-left-danger shadow h-100 py-2 rounded-4">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Stocuri reduse</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.LowStock</div>
-                        </div>
-                        <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card border-left-success shadow h-100 py-2 rounded-4">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Utilizatori</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.UserCount</div>
-                        </div>
-                        <i class="fas fa-users fa-2x text-success"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <hr class="my-5" />
-
-        <h4 class="text-dark">Ultimele produse adăugate</h4>
-        @if (ViewBag.LatestProducts != null && ((List<NextGenPC.Models.Products.ProductDataModel>)ViewBag.LatestProducts).Any())
+    <!-- Produse recente -->
+    <div class="my-5">
+        <h4 class="text-dark mb-4">Ultimele produse adăugate</h4>
+        @if (latestProducts != null && latestProducts.Any())
         {
-            <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
-                @foreach (var product in (List<NextGenPC.Models.Products.ProductDataModel>)ViewBag.LatestProducts)
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach (var product in latestProducts)
                 {
                     <div class="col">
-                        <div class="card h-100 border-0 shadow rounded-4">
-                            <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;" />
+                        <div class="card h-100 border-0 shadow-sm rounded-4 transition-all card-hover">
+                            <img src="@(!string.IsNullOrEmpty(product.ImageUrl) ? product.ImageUrl : Url.Content("~/images/no-image.png"))"
+                                 class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;" />
                             <div class="card-body">
                                 <h5 class="card-title">@product.Name</h5>
                                 <p class="card-text text-muted">Specificatii: @product.Specifications</p>
@@ -130,33 +112,5 @@
         {
             <p class="text-muted">Nu există produse recente.</p>
         }
-    </div>
-
-    <hr class="my-5" />
-
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="dashboard-card">
-                <h5>Utilizatori</h5>
-                <p>Gestionează utilizatorii existenți din sistem.</p>
-                <a href="@Url.Action("Users", "Admin")" class="btn btn-sm">Deschide</a>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="dashboard-card">
-                <h5>Comenzi</h5>
-                <p>Monitorizează comenzile plasate de clienți.</p>
-                <a href="@Url.Action("Orders", "Admin")" class="btn btn-sm">Deschide</a>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="dashboard-card">
-                <h5>Produse</h5>
-                <p>Adaugă, editează sau șterge produse.</p>
-                <a href="@Url.Action("Products", "Admin")" class="btn btn-sm">Deschide</a>
-            </div>
-        </div>
     </div>
 </div>
