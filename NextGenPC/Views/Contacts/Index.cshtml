@@ -1,139 +1,258 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    ViewBag.Title = "Contacts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
-</head>
+<style>
+    body {
+        background: #f1f4f9;
+        background-image:
+            radial-gradient(circle at top left, rgba(100, 149, 237, 0.15), transparent 60%),
+            radial-gradient(circle at bottom right, rgba(255, 165, 0, 0.15), transparent 60%);
+        color: #333;
+    }
 
-<body>
-    <div class="container mt-4">
-        <div class="text-center mb-4">
-            <h1 class="display-4 font-weight-bold text-dark mb-4">Contact Us</h1>
-            <p class="lead text-muted">Get in touch with our team</p>
-        </div>
+    .contact-page {
+        margin-top: 1.5rem;
+        padding: 2rem 1rem 1.5rem;
+    }
 
-        <div class="row mb-4">
-            <div class="col-lg-6 mb-4">
-                <div class="bg-white p-4 rounded-lg shadow-sm">
-                    <h2 class="h2 font-weight-bold text-dark mb-4">Send us a message</h2>
-                    <form>
-                        <div class="form-group">
-                            <label for="name" class="text-sm font-medium text-gray-700">Name</label>
-                            <input type="text" id="name" class="form-control" placeholder="Your name">
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" id="email" class="form-control" placeholder="your.email@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="message" class="text-sm font-medium text-gray-700">Message</label>
-                            <textarea id="message" rows="4" class="form-control" placeholder="Your message"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Send Message</button>
-                    </form>
-                </div>
+    .contact-wrapper {
+        max-width: 960px;
+        margin: auto;
+        display: flex;
+        gap: 1.8rem;
+    }
+
+    .contact-form {
+        flex: 2;
+        background: #fff;
+        padding: 1.8rem 2rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgb(0 0 0 / 0.04);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .contact-form h2 {
+        font-family: inherit;
+        font-weight: inherit;
+        font-size: inherit;
+        margin-bottom: 1.5rem;
+        color: #0d6efd;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+
+    .contact-form h2 i {
+        font-size: 1.4rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #555;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        border: 1.8px solid #ddd;
+        border-radius: 8px;
+        padding: 0.5rem 0.85rem;
+        font-size: 0.95rem;
+        transition: border-color 0.3s ease;
+        resize: vertical;
+        min-height: 36px;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #0d6efd;
+        box-shadow: 0 0 6px rgba(13, 110, 253, 0.2);
+    }
+
+    textarea {
+        min-height: 100px;
+    }
+
+    button.btn-submit {
+        margin-top: 1rem;
+        background-color: #0d6efd;
+        color: white;
+        padding: 0.65rem 0;
+        font-weight: 700;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    button.btn-submit:hover {
+        background-color: #0848c8;
+    }
+
+    .social-card {
+        flex: 1;
+        background: linear-gradient(135deg, #0d6efd 0%, #004aad 100%);
+        border-radius: 12px;
+        padding: 1.8rem 2rem;
+        color: white;
+        box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 0.95rem;
+        justify-content: space-between;
+    }
+
+    .social-card h3 {
+        font-weight: 700;
+        font-size: 1.4rem;
+        margin-bottom: 1.8rem;
+        letter-spacing: 0.05em;
+        color: #ffcd3c;
+    }
+
+    .social-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .social-list li a {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-weight: 600;
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: color 0.25s ease;
+    }
+
+    .social-list li a i {
+        font-size: 1.8rem;
+        min-width: 30px;
+        transition: color 0.25s ease;
+    }
+
+    .social-list li a:hover {
+        color: #ffcd3c;
+    }
+
+    .social-list li a:hover i {
+        color: #ffcd3c;
+    }
+
+    .contact-info {
+        margin-top: 2.5rem;
+        font-size: 0.9rem;
+        color: #eee;
+    }
+
+    .contact-info p {
+        margin: 0.3rem 0;
+    }
+
+    @@media (max-width: 768px) {
+        .contact-wrapper {
+            flex-direction: column;
+        }
+
+        .social-card {
+            margin-top: 2rem;
+            align-items: center;
+            text-align: center;
+        }
+
+        .social-list {
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.3rem;
+        }
+
+        .social-list li a {
+            font-size: 1rem;
+        }
+
+        .social-list li a i {
+            font-size: 1.4rem;
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+        }
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<div class="contact-page">
+    <div class="contact-wrapper">
+
+        <form method="post" action="@Url.Action("SendContact", "Home")" class="contact-form" novalidate>
+            <h2><i class="fas fa-envelope"></i> Contactează-ne</h2>
+
+            <div class="form-group">
+                <label for="name">Nume</label>
+                <input type="text" id="name" name="Name" placeholder="Numele tău" required />
             </div>
 
-            <div class="col-lg-6">
-                <div class="bg-white p-4 rounded-lg shadow-sm mb-4">
-                    <h2 class="h2 font-weight-bold text-dark mb-4">Connect with us</h2>
-                    <div class="row">
-                        <div class="col-6 mb-2">
-                            <a href="#" class="d-flex align-items-center text-muted">
-                                <svg class="icon mr-2">
-                                    <use xlink:href="#facebook"></use>
-                                </svg>
-                                <span>Facebook</span>
-                            </a>
-                        </div>
-                        <div class="col-6 mb-2">
-                            <a href="#" class="d-flex align-items-center text-muted">
-                                <svg class="icon mr-2">
-                                    <use xlink:href="#twitter"></use>
-                                </svg>
-                                <span>Twitter</span>
-                            </a>
-                        </div>
-                        <div class="col-6 mb-2">
-                            <a href="#" class="d-flex align-items-center text-muted">
-                                <svg class="icon mr-2">
-                                    <use xlink:href="#instagram"></use>
-                                </svg>
-                                <span>Instagram</span>
-                            </a>
-                        </div>
-                        <div class="col-6 mb-2">
-                            <a href="#" class="d-flex align-items-center text-muted">
-                                <svg class="icon mr-2">
-                                    <use xlink:href="#linkedin"></use>
-                                </svg>
-                                <span>LinkedIn</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-4 rounded-lg shadow-sm">
-                    <h2 class="h2 font-weight-bold text-dark mb-4">Contact Information</h2>
-                    <div class="mb-3 d-flex align-items-start text-muted">
-                        <svg class="icon mr-2">
-                            <use xlink:href="#mail"></use>
-                        </svg>
-                        <div>
-                            <p class="font-weight-bold mb-0">Email</p>
-                            <p>contact@nextgenpc.com</p>
-                        </div>
-                    </div>
-                    <div class="mb-3 d-flex align-items-start text-muted">
-                        <svg class="icon mr-2">
-                            <use xlink:href="#phone"></use>
-                        </svg>
-                        <div>
-                            <p class="font-weight-bold mb-0">Phone</p>
-                            <p>+1 (555) 123-4567</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-start text-muted">
-                        <svg class="icon mr-2">
-                            <use xlink:href="#map-pin"></use>
-                        </svg>
-                        <div>
-                            <p class="font-weight-bold mb-0">Address</p>
-                            <p>123 Tech Street</p>
-                            <p>Silicon Valley, CA 94025</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="Email" placeholder="exemplu@domeniu.com" required />
             </div>
-        </div>
+
+            <div class="form-group">
+                <label for="subject">Subiect</label>
+                <input type="text" id="subject" name="Subject" placeholder="Subiect mesaj" required />
+            </div>
+
+            <div class="form-group">
+                <label for="message">Mesaj</label>
+                <textarea id="message" name="Message" placeholder="Scrie mesajul tău aici..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Trimite</button>
+        </form>
+
+        <aside class="social-card">
+            <div>
+                <h3>Urmărește-ne</h3>
+                <ul class="social-list">
+                    <li><a href="https://instagram.com/fakeprofile" target="_blank"><i class="fab fa-instagram"></i>Instagram</a></li>
+                    <li><a href="https://twitter.com/fakeprofile" target="_blank"><i class="fab fa-twitter"></i>Twitter</a></li>
+                    <li><a href="https://facebook.com/fakeprofile" target="_blank"><i class="fab fa-facebook-f"></i>Facebook</a></li>
+                    <li><a href="https://linkedin.com/company/fakeprofile" target="_blank"><i class="fab fa-linkedin-in"></i>LinkedIn</a></li>
+                    <li><a href="https://youtube.com/fakeprofile" target="_blank"><i class="fab fa-youtube"></i>YouTube</a></li>
+                </ul>
+            </div>
+
+            <div class="contact-info">
+                <p><strong>Adresă:</strong> Str. Exemplu 123, București</p>
+                <p><strong>Telefon:</strong> 0740 000 000</p>
+                <p><strong>Email:</strong> contact@nextgenpc.ro</p>
+            </div>
+        </aside>
+
     </div>
-
-    <!-- Icons -->
-    <svg style="display: none;">
-        <symbol id="facebook" viewBox="0 0 24 24">
-            <path d="M22.675 0h-21.35C.595 0 0 .595 0 1.325v21.351C0 23.405.595 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.794.715-1.794 1.763v2.31h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.325-.595 1.325-1.324V1.325C24 .595 23.405 0 22.675 0z"></path>
-        </symbol>
-        <symbol id="twitter" viewBox="0 0 24 24">
-            <path d="M23.954 4.569c-.885.392-1.83.656-2.825.775 1.014-.608 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.897-.959-2.178-1.559-3.594-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124-4.087-.205-7.713-2.165-10.141-5.144-.422.722-.666 1.561-.666 2.457 0 1.697.865 3.192 2.181 4.073-.803-.026-1.56-.247-2.228-.616v.061c0 2.367 1.684 4.342 3.918 4.788-.41.111-.84.171-1.285.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.179 1.396 4.768 2.209 7.557 2.209 9.054 0 14.002-7.496 14.002-13.986 0-.21 0-.423-.015-.634.961-.695 1.8-1.562 2.46-2.549z"></path>
-        </symbol>
-        <symbol id="instagram" viewBox="0 0 24 24">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.31.975.975 1.248 2.242 1.31 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.31 3.608-.975.975-2.242 1.248-3.608 1.31-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.31-.975-.975-1.248-2.242-1.31-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.334-2.633 1.31-3.608.975-.975 2.242-1.248 3.608-1.31 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-1.281.059-2.563.334-3.535 1.306-.972.972-1.247 2.254-1.306 3.535-.058 1.28-.072 1.688-.072 4.947s.014 3.667.072 4.947c.059 1.281.334 2.563 1.306 3.535.972.972 2.254 1.247 3.535 1.306 1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.281-.059 2.563-.334 3.535-1.306.972-.972 1.247-2.254 1.306-3.535.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.059-1.281-.334-2.563-1.306-3.535-.972-.972-2.254-1.247-3.535-1.306-1.28-.058-1.688-.072-4.947-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.207 0-4-1.793-4-4s1.793-4 4-4 4 1.793 4 4-1.793 4-4 4zm6.406-11.845c0 .796-.646 1.442-1.442 1.442s-1.442-.646-1.442-1.442.646-1.442 1.442-1.442 1.442.646 1.442 1.442z"></path>
-        </symbol>
-        <symbol id="linkedin" viewBox="0 0 24 24">
-            <path d="M22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.58c-1.14 0-2.06-.92-2.06-2.06s.92-2.06 2.06-2.06 2.06.92 2.06 2.06-.92 2.06-2.06 2.06zM20.45 20.45h-3.56v-5.6c0-1.34-.03-3.06-1.86-3.06-1.86 0-2.15 1.45-2.15 2.95v5.71H9.32V9h3.42v1.56h.05c.48-.91 1.65-1.86 3.4-1.86 3.63 0 4.3 2.39 4.3 5.5v6.25z"></path>
-        </symbol>
-        <symbol id="mail" viewBox="0 0 24 24">
-            <path d="M12 13.065L.015 6.5C.015 6.5 0 6.5 0 6.5v11.5c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6.5s-.015 0-.015 0L12 13.065zM12 11L24 4.5V4c0-1.1-.9-2-2-2H2C.9 2 0 2.9 0 4v.5L12 11z"></path>
-        </symbol>
-        <symbol id="phone" viewBox="0 0 24 24">
-            <path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.26 1.12.28 2.33.43 3.57.43.55 0 1 .45 1 1v3.5c0 .55-.45 1-1 1C10.29 22 2 13.71 2 3.5 2 2.95 2.45 2.5 3 2.5H6.5c.55 0 1 .45 1 1 0 1.24.15 2.45.43 3.57.1.35.01.74-.26 1.02l-2.2 2.2z"></path>
-        </symbol>
-        <symbol id="map-pin" viewBox="0 0 24 24">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"></path>
-        </symbol>
-    </svg>
-</body>
-
-</html>
+</div>
